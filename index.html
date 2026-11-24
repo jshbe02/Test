@@ -1,0 +1,2266 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GTA 6 Code Finder — 레오니다 금고·문 비밀번호 공략 & 트래커</title>
+  <meta name="description" content="GTA 6 (Leonida) 전체 40곳 금고·문·차고 비밀번호 오타 보정 검색기, 지역·보상 필터, 위치 바로가기, 100% 완료 트래커 (한국어/English)" />
+  <meta property="og:title" content="GTA 6 Code Finder — 레오니다 금고·문 비밀번호 공략 & 트래커" />
+  <meta property="og:description" content="오타·초성 검색, 지역/보상 필터, 유튜브·지도 위치 바로가기, 완료 진행률 체크까지 한 번에 (KO/EN)" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23090A0F'/><text x='50%' y='54%' dominant-baseline='central' text-anchor='middle' font-size='54'>🔐</text></svg>" />
+
+  <!-- Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Apple SD Gothic Neo', 'Malgun Gothic', 'sans-serif'],
+            mono: ['JetBrains Mono', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
+          },
+          colors: {
+            obsidian: '#090A0F',
+            slateCard: '#12141C',
+            slateCardHover: '#171A24',
+            borderCrisp: '#1F2433',
+            viceCyan: '#22D3EE',
+            viceCoral: '#FB7185',
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    body {
+      background-color: #090A0F;
+      color: #F3F4F6;
+      -webkit-tap-highlight-color: transparent;
+      overflow-x: hidden;
+    }
+
+    /* Slashed zero & tabular digits for crystal-clear code legibility */
+    .code-digits {
+      font-variant-numeric: tabular-nums slashed-zero;
+      font-feature-settings: "zero" 1, "tnum" 1;
+    }
+
+    /* Hide horizontal scrollbar on filter pill bars */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    /* Toast pop-in animation */
+    @keyframes toastPop {
+      0% { opacity: 0; transform: translate(-50%, 14px) scale(0.96); }
+      100% { opacity: 1; transform: translate(-50%, 0) scale(1); }
+    }
+    .toast-enter {
+      animation: toastPop 0.18s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    /* Deep-link target card highlight flash */
+    @keyframes hashFlash {
+      0% {
+        box-shadow: 0 0 0 2px #22D3EE, 0 0 32px rgba(34, 211, 238, 0.45);
+        border-color: #22D3EE;
+      }
+      45% {
+        box-shadow: 0 0 0 2px #FB7185, 0 0 36px rgba(251, 113, 133, 0.45);
+        border-color: #FB7185;
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(34, 211, 238, 0);
+      }
+    }
+    .hash-highlight {
+      animation: hashFlash 2.6s ease-out 1;
+    }
+  </style>
+</head>
+<body class="bg-obsidian text-gray-100 font-sans antialiased min-h-screen flex flex-col selection:bg-cyan-400/30 selection:text-cyan-200">
+
+  <!-- Sticky Compact Top Header (Brand, Progress, Search) -->
+  <header class="sticky top-0 z-40 bg-[#090A0F]/92 backdrop-blur-md border-b border-borderCrisp">
+    <div class="max-w-7xl mx-auto px-3.5 sm:px-6 pt-3 pb-3 space-y-2.5">
+
+      <!-- Row 1: Brand + Controls -->
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <!-- Brand -->
+        <div class="flex items-center gap-2.5 min-w-0">
+          <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-cyan-400/20 to-rose-400/20 border border-cyan-400/30 flex items-center justify-center text-viceCyan shrink-0">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+          </div>
+          <div class="min-w-0">
+            <div class="flex items-center gap-2">
+              <h1 id="appTitle" class="text-base sm:text-lg font-extrabold tracking-tight text-white truncate">GTA 6 비밀번호</h1>
+              <span class="px-1.5 py-0.5 text-[10px] font-extrabold tracking-wider uppercase rounded-md bg-gradient-to-r from-cyan-400/15 to-rose-400/15 text-viceCyan border border-cyan-400/25 shrink-0">LEONIDA</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Header Action Buttons -->
+        <div class="flex items-center gap-1.5 sm:gap-2">
+          <!-- Random Safe Cheat Sheet Modal Button -->
+          <button id="openGuideModalBtn" type="button" class="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl bg-slateCard hover:bg-slateCardHover border border-borderCrisp hover:border-rose-400/40 text-xs font-semibold text-gray-200 hover:text-white transition cursor-pointer">
+            <svg class="w-3.5 h-3.5 text-viceCoral shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="10"></circle>
+              <path d="M12 16v-4"></path>
+              <path d="M12 8h.01"></path>
+            </svg>
+            <span id="guideBtnLabel">랜덤 금고 공략</span>
+          </button>
+
+          <!-- Language Switcher (한국어 / EN) -->
+          <div class="flex items-center p-0.5 rounded-xl bg-slateCard border border-borderCrisp" role="group" aria-label="Language Switcher">
+            <button id="langKoBtn" type="button" class="px-2.5 py-1 text-xs font-bold rounded-lg transition cursor-pointer">한국어</button>
+            <button id="langEnBtn" type="button" class="px-2.5 py-1 text-xs font-bold rounded-lg transition cursor-pointer">EN</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 2: Search Input + Uncompleted Only Toggle -->
+      <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+        <div class="relative flex-1">
+          <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-gray-400">
+            <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+              <circle cx="11" cy="11" r="8"></circle>
+              <path d="m21 21-4.3-4.3"></path>
+            </svg>
+          </div>
+          <input
+            id="searchInput"
+            type="text"
+            autocomplete="off"
+            spellcheck="false"
+            class="w-full h-11 pl-10 sm:pl-11 pr-20 rounded-xl bg-slateCard border border-borderCrisp text-white placeholder-gray-500 text-sm font-medium focus:outline-none focus:border-viceCyan/80 focus:ring-2 focus:ring-cyan-400/20 transition"
+            placeholder="장소·초성(ㅍㄹㅋ)·오타(문스튼, monstone)·무기(KZ-59)·코드 검색..."
+          />
+          <div class="absolute inset-y-0 right-0 flex items-center pr-2 gap-1.5">
+            <button
+              id="clearSearchBtn"
+              type="button"
+              class="hidden p-1.5 rounded-lg text-gray-400 hover:text-white hover:bg-gray-800 transition cursor-pointer"
+              aria-label="Clear search"
+            >
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                <path d="M18 6 6 18M6 6l12 12"></path>
+              </svg>
+            </button>
+            <kbd class="hidden sm:inline-flex items-center justify-center px-2 py-0.5 text-[11px] font-mono font-bold text-gray-400 bg-obsidian border border-borderCrisp rounded-md">/</kbd>
+          </div>
+        </div>
+
+        <!-- Compact Progress Bar + Uncompleted Only Toggle -->
+        <div class="flex items-center justify-between sm:justify-end gap-2 bg-slateCard border border-borderCrisp rounded-xl px-3 py-2 sm:h-11 shrink-0">
+          <!-- Progress Bar -->
+          <div class="flex items-center gap-2.5 min-w-0">
+            <div class="space-y-1">
+              <div class="flex items-center gap-1.5">
+                <span id="progressText" class="text-[11px] font-mono font-bold text-gray-200 whitespace-nowrap">완료 0 / 40 (0%)</span>
+              </div>
+              <div class="w-28 sm:w-32 h-1.5 rounded-full bg-obsidian overflow-hidden border border-borderCrisp/80">
+                <div id="progressBarFill" class="h-full rounded-full bg-gradient-to-r from-viceCyan to-viceCoral transition-all duration-300" style="width: 0%;"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="w-px h-6 bg-borderCrisp shrink-0"></div>
+
+          <!-- Uncompleted Only Pill -->
+          <button
+            id="uncompletedToggleBtn"
+            type="button"
+            aria-pressed="false"
+            class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-semibold border transition cursor-pointer shrink-0 bg-obsidian border-borderCrisp text-gray-300 hover:text-white hover:border-gray-600"
+          >
+            <span id="uncompletedDot" class="w-2 h-2 rounded-full bg-gray-600 transition"></span>
+            <span id="uncompletedLabel">안 턴 곳만 보기</span>
+          </button>
+
+          <!-- Subtle Reset Progress Utility Button -->
+          <button
+            id="openResetModalBtn"
+            type="button"
+            title="진행률 초기화"
+            class="p-1.5 rounded-lg text-gray-500 hover:text-rose-400 hover:bg-rose-500/10 transition cursor-pointer shrink-0"
+          >
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+              <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+              <path d="M3 3v5h5"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-3.5 sm:px-6 py-4 space-y-4">
+
+    <!-- Multi-Dimensional Filter Panel -->
+    <section class="rounded-2xl bg-slateCard/85 border border-borderCrisp p-3 sm:p-4 space-y-3">
+      <!-- Region Filter Row -->
+      <div class="flex flex-col sm:flex-row sm:items-center gap-1.5 sm:gap-3">
+        <span id="regionFilterLabel" class="text-[11px] font-bold uppercase tracking-wider text-gray-400 sm:w-16 shrink-0">지역</span>
+        <div id="regionFilterBar" class="flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-0.5">
+          <!-- Injected dynamically -->
+        </div>
+      </div>
+
+      <!-- Reward Filter Row -->
+      <div class="flex flex-col sm:flex-row sm:items-center gap-1.5 sm:gap-3">
+        <span id="rewardFilterLabel" class="text-[11px] font-bold uppercase tracking-wider text-gray-400 sm:w-16 shrink-0">보상</span>
+        <div id="rewardFilterBar" class="flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-0.5">
+          <!-- Injected dynamically -->
+        </div>
+      </div>
+
+      <!-- Category Quick Filter Row + Clear All Filters -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pt-2 border-t border-borderCrisp/70">
+        <div class="flex flex-col sm:flex-row sm:items-center gap-1.5 sm:gap-3 min-w-0">
+          <span id="categoryFilterLabel" class="text-[11px] font-bold uppercase tracking-wider text-gray-400 sm:w-16 shrink-0">유형</span>
+          <div id="categoryFilterBar" class="flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-0.5">
+            <!-- Injected dynamically -->
+          </div>
+        </div>
+
+        <button
+          id="resetAllFiltersBtn"
+          type="button"
+          class="hidden self-start sm:self-auto inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/25 text-xs font-semibold text-rose-300 transition cursor-pointer shrink-0"
+        >
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+            <path d="M18 6 6 18M6 6l12 12"></path>
+          </svg>
+          <span id="resetAllFiltersText">필터 초기화</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Results Status Bar -->
+    <div class="flex flex-wrap items-center justify-between gap-2 text-xs text-gray-400 px-0.5">
+      <div id="resultSummary" class="font-medium"></div>
+      <div id="leadingZeroGlobalTip" class="inline-flex items-center gap-1.5 text-amber-300/90 font-medium"></div>
+    </div>
+
+    <!-- Cards Grid (Responsive 1 / 2 / 3 columns) -->
+    <section id="cardsGrid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3.5" aria-live="polite">
+      <!-- Cards injected dynamically -->
+    </section>
+
+    <!-- Empty State -->
+    <div id="emptyState" class="hidden py-16 px-4 text-center rounded-2xl bg-slateCard border border-borderCrisp">
+      <div class="w-12 h-12 mx-auto mb-3 rounded-2xl bg-obsidian border border-borderCrisp flex items-center justify-center text-2xl">🔍</div>
+      <h2 id="emptyTitle" class="text-base font-bold text-white mb-1">일치하는 장소를 찾지 못했습니다</h2>
+      <p id="emptyDesc" class="text-sm text-gray-400 mb-5 max-w-md mx-auto">다른 철자나 초성(예: ㅍㄹㅋ, ㅁㅅㅌ), 보상명(KZ-59, Vamos)으로 검색하거나 필터를 초기화해 보세요.</p>
+      <button id="emptyResetBtn" type="button" class="px-4 py-2.5 rounded-xl bg-cyan-400/15 hover:bg-cyan-400/25 border border-cyan-400/35 text-viceCyan text-sm font-bold transition cursor-pointer">
+        검색 및 필터 초기화
+      </button>
+    </div>
+
+    <!-- Footer -->
+    <footer class="pt-4 pb-10 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-gray-500 border-t border-borderCrisp/70">
+      <p id="footerNote">코드를 클릭하면 앞자리 0까지 그대로 복사됩니다. 단축키 / 로 즉시 검색하세요.</p>
+      <div class="flex items-center gap-2">
+        <button id="copyPageUrlBtn" type="button" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slateCard hover:bg-slateCardHover border border-borderCrisp text-gray-300 hover:text-white transition cursor-pointer">
+          <svg class="w-3.5 h-3.5 text-viceCyan" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+          </svg>
+          <span id="copyPageUrlText">전체 사이트 링크 복사</span>
+        </button>
+      </div>
+    </footer>
+  </main>
+
+  <!-- Floating Toast Notification -->
+  <div id="toastContainer" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 pointer-events-none hidden">
+    <div id="toastInner" class="toast-enter flex items-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-400 text-gray-950 font-extrabold text-sm shadow-2xl shadow-emerald-500/25 whitespace-nowrap">
+      <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+        <path d="M20 6 9 17l-5-5"></path>
+      </svg>
+      <span id="toastMessage">복사됨!</span>
+    </div>
+  </div>
+
+  <!-- Random Safes & Banks Cheat Sheet Modal -->
+  <div id="guideModal" class="fixed inset-0 z-50 hidden items-center justify-center p-3.5 sm:p-5 bg-black/80 backdrop-blur-sm">
+    <div class="w-full max-w-xl max-h-[88vh] flex flex-col rounded-2xl bg-slateCard border border-borderCrisp shadow-2xl overflow-hidden">
+      <!-- Modal Header -->
+      <div class="flex items-center justify-between px-5 py-4 border-b border-borderCrisp bg-obsidian/60">
+        <div class="flex items-center gap-2.5">
+          <span class="px-2 py-0.5 rounded-md text-[11px] font-extrabold bg-rose-500/15 text-viceCoral border border-rose-500/30">GUIDE</span>
+          <h3 id="guideModalTitle" class="text-base font-extrabold text-white">일반 상점·은행 랜덤 금고 공략</h3>
+        </div>
+        <button id="closeGuideModalBtn" type="button" class="p-1.5 rounded-lg text-gray-400 hover:text-white hover:bg-gray-800 transition cursor-pointer" aria-label="Close modal">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+            <path d="M18 6 6 18M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+      <!-- Modal Body -->
+      <div id="guideModalBody" class="p-5 overflow-y-auto space-y-3.5 text-sm text-gray-300 leading-relaxed">
+        <!-- Populated dynamically based on language -->
+      </div>
+      <!-- Modal Footer -->
+      <div class="px-5 py-3.5 border-t border-borderCrisp bg-obsidian/40 flex justify-end">
+        <button id="guideModalOkBtn" type="button" class="px-4 py-2 rounded-xl bg-viceCyan hover:bg-cyan-300 text-gray-950 text-xs font-extrabold transition cursor-pointer">확인</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Custom Reset Progress Confirmation Modal (Never uses browser confirm()) -->
+  <div id="resetModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+    <div class="w-full max-w-sm rounded-2xl bg-slateCard border border-borderCrisp p-5 shadow-2xl space-y-4">
+      <div class="space-y-1.5">
+        <h3 id="resetModalTitle" class="text-base font-extrabold text-white">완료 기록을 초기화할까요?</h3>
+        <p id="resetModalDesc" class="text-sm text-gray-400">체크해 둔 모든 금고·문·차고 완료 기록이 해제됩니다.</p>
+      </div>
+      <div class="flex items-center justify-end gap-2 pt-1">
+        <button id="cancelResetBtn" type="button" class="px-3.5 py-2 rounded-xl bg-obsidian hover:bg-gray-800 border border-borderCrisp text-xs font-semibold text-gray-300 transition cursor-pointer">취소</button>
+        <button id="confirmResetBtn" type="button" class="px-3.5 py-2 rounded-xl bg-rose-500 hover:bg-rose-400 text-xs font-bold text-white transition cursor-pointer">초기화</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /**
+     * =========================================================================
+     * 1. COMPLETE VERIFIED DATASET — ALL 40 GTA 6 (LEONIDA) LOCATIONS
+     *    Structured with region keys, reward tags, reward details, entry tips,
+     *    spoiler-safe clue breakdowns, and multilingual phonetic/typo aliases.
+     * =========================================================================
+     */
+    const LOCATIONS = [
+      // 1
+      {
+        id: 'moonstone-boutique',
+        en: 'Moonstone Boutique',
+        ko: '문스톤 부티크 (뒷방 연구실 문)',
+        region: 'vice-city',
+        subRegionEn: 'Artist Village',
+        subRegionKo: '아티스트 빌리지',
+        category: 'story',
+        codes: [{ labelEn: 'Backroom Lab Door', labelKo: '뒷방 연구실 문', code: '0420' }],
+        rewards: ['mission', 'cash'],
+        tipEn: "Threaten clerk during 'Lab Fees' mission. Backroom lab door.",
+        tipKo: 'Lab Fees 미션 중 점원을 협박해 코드 획득. 뒷방 연구실 문.',
+        clueEn: 'Aim at the boutique clerk after locating the locked backroom lab door to force the 4-digit code.',
+        clueKo: '뒷방 잠긴 연구실 문을 확인한 뒤 매장 점원을 협박하면 4자리 코드를 알려줍니다.',
+        aliases: ['문스톤', '문스툰', '문스튼', '문스턴', '부티크', '부틱', '뒷방', '연구실', '아티스트빌리지', '랩피', 'moonstone', 'monstone', 'munsuton', 'boutique', 'botique', 'labfees', 'artistvillage']
+      },
+      // 2
+      {
+        id: 'brians-lockup',
+        en: "Brian's Lockup",
+        ko: '브라이언 창고 (Isla Tropical)',
+        region: 'vice-city',
+        subRegionEn: 'Beside Isla Tropical Private Club',
+        subRegionKo: '이슬라 트로피컬 프라이빗 클럽 옆',
+        category: 'story',
+        codes: [{ labelEn: 'Lockup Door', labelKo: '창고 문', code: '7700' }],
+        rewards: ['mission', 'cash'],
+        tipEn: "Obtained after phone call with Brian in 'Lab Fees'. Door beside Isla Tropical Private Club.",
+        tipKo: 'Lab Fees 미션 중 브라이언과 전화 통화 후 획득. 프라이빗 클럽 옆 문.',
+        aliases: ['브라이언', '부라이언', '브라이온', '창고', '락업', '이슬라', '트로피컬', '프라이빗클럽', '랩피', 'brian', 'bryan', 'lockup', 'lokup', 'isla', 'tropical', 'labfees']
+      },
+      // 3
+      {
+        id: 'first-impressions-garage',
+        en: 'First Impressions Garage',
+        ko: '퍼스트 임프레션 차고 문',
+        region: 'vice-city',
+        subRegionEn: 'Story Mission',
+        subRegionKo: '스토리 미션',
+        category: 'story',
+        codes: [{ labelEn: 'Garage Door', labelKo: '차고 문', code: '2404' }],
+        rewards: ['mission'],
+        tipEn: "Locked garage door at the start of the 'First Impressions' mission.",
+        tipKo: 'First Impressions 미션 시작 지점의 잠긴 차고 문.',
+        aliases: ['퍼스트임프레션', '퍼스트', '임프레션', '첫인상', '시작차고', '차고문', 'first', 'impressions', 'impresion', 'garage']
+      },
+      // 4
+      {
+        id: 'delights-safe',
+        en: 'Delights Office Safe',
+        ko: '딜라이츠 사무실 금고',
+        region: 'vice-city',
+        subRegionEn: 'Afternoon Delight',
+        subRegionKo: 'Afternoon Delight 미션',
+        category: 'story',
+        codes: [{ labelEn: 'Office Safe', labelKo: '사무실 금고', code: '2008' }],
+        rewards: ['cash', 'mission'],
+        tipEn: "Inside the Delights office during 'Afternoon Delight'.",
+        tipKo: 'Afternoon Delight 미션 중 딜라이츠 사무실 내부 금고.',
+        aliases: ['딜라이츠', '델라이츠', '딜라이트', '델라이트', '애프터눈', '사무실금고', 'delights', 'delight', 'delite', 'afternoon']
+      },
+      // 5
+      {
+        id: 'casa-de-empeno',
+        en: 'Casa de Empeño Safe',
+        ko: '카사 데 엠페뇨 전당포 금고',
+        region: 'vice-city',
+        subRegionEn: 'Little Cuba',
+        subRegionKo: '리틀 쿠바',
+        category: 'story',
+        codes: [{ labelEn: 'Pawn Safe', labelKo: '전당포 금고', code: '1680' }],
+        rewards: ['cash', 'mission'],
+        tipEn: "Fixed during Yasmani's Jewelry Jobs (randomizes on replay).",
+        tipKo: "Yasmani's Jewelry Jobs 최초 진행 시 고정 (재강도 시 랜덤 변경).",
+        aliases: ['카사데엠페뇨', '카사', '엠페뇨', '엠페노', '전당포', '리틀쿠바', '야스마니', '보석', 'casa', 'empeno', 'empenyo', 'yasmani', 'jewelry', 'pawn', 'littlecuba']
+      },
+      // 6
+      {
+        id: 'richardson-jewelry',
+        en: 'Richardson Jewelry Safe',
+        ko: '리처드슨 보석상 금고',
+        region: 'vice-city',
+        subRegionEn: "Yasmani's Jewelry Jobs",
+        subRegionKo: '야스마니 보석 강도',
+        category: 'story',
+        codes: [{ labelEn: 'Jewelry Safe', labelKo: '보석상 금고', code: '6815' }],
+        rewards: ['cash', 'mission'],
+        tipEn: "Fixed during Yasmani's Jewelry Jobs (randomizes on replay).",
+        tipKo: "Yasmani's Jewelry Jobs 최초 진행 시 고정 (재강도 시 랜덤 변경).",
+        aliases: ['리처드슨', '리차드슨', '리쳐드슨', '보석상', '주얼리', '야스마니', 'richardson', 'richrdson', 'ricardson', 'jewelry', 'yasmani']
+      },
+      // 7
+      {
+        id: 'donovan-banks',
+        en: 'Donovan Banks & Co. Safe',
+        ko: '도노반 뱅크스 금고',
+        region: 'vice-city',
+        subRegionEn: "Yasmani's Jewelry Jobs",
+        subRegionKo: '야스마니 보석 강도',
+        category: 'story',
+        codes: [{ labelEn: 'Safe', labelKo: '금고', code: '0104' }],
+        rewards: ['cash', 'mission'],
+        tipEn: "Leading 0 required. Fixed on first Yasmani's Jewelry Job (changes on replay).",
+        tipKo: "앞자리 0 필수 입력. Yasmani's Jewelry Jobs 최초 고정(재강도 시 변경).",
+        aliases: ['도노반', '도노번', '도너반', '뱅크스', '도노반뱅크스', '야스마니', '보석', 'donovan', 'donvan', 'donaban', 'banks', 'yasmani']
+      },
+      // 8
+      {
+        id: 'sundown-airfield',
+        en: 'Sundown Private Airfield Hangar',
+        ko: '선다운 사설 비행장 격납고 금고',
+        region: 'leonard-county',
+        subRegionEn: 'Leonard County',
+        subRegionKo: '레오나드 카운티',
+        category: 'story',
+        codes: [{ labelEn: 'Hangar Backroom Safe', labelKo: '격납고 뒷방 금고', code: '3718' }],
+        rewards: ['weapon', 'cash'],
+        rewardDetailEn: 'Unique Weapon: KZ-59',
+        rewardDetailKo: '고유 무기: KZ-59',
+        tipEn: "Inside the red door at Pilot Pete's hangar during 'The Last Mile: Passing the Torch'. Unique KZ-59 on table.",
+        tipKo: 'The Last Mile: Passing the Torch 미션. Pilot Pete 격납고 빨간 문 안쪽 테이블에 고유 무기 KZ-59.',
+        clueEn: 'Enter Pilot Pete hangar → unlock the red interior door → grab the unique KZ-59 weapon directly off the table next to the safe.',
+        clueKo: 'Pilot Pete 격납고 빨간 문 안쪽으로 진입하면 금고와 함께 테이블 위 고유 무기 KZ-59를 챙길 수 있습니다.',
+        aliases: ['선다운', '썬다운', '사설비행장', '비행장', '격납고', '파일럿피트', '피트', '빨간문', '레오나드', '레너드', '라스트마일', 'kz59', 'kz-59', '고유무기', '총', 'sundown', 'airfield', 'hangar', 'hanger', 'pilot', 'pete', 'leonard', 'kz59', 'torch']
+      },
+      // 9
+      {
+        id: 'brooks-boatworks',
+        en: 'Brooks Boatworks',
+        ko: '브룩스 보트웍스 사무실·창고',
+        region: 'port-gellhorn',
+        subRegionEn: 'Port Gellhorn',
+        subRegionKo: '포트 겔혼',
+        category: 'hideout',
+        codes: [{ labelEn: 'Office / Stash Safe', labelKo: '사무실·창고 금고', code: '6823' }],
+        rewards: ['cash'],
+        tipEn: 'Take exterior stairs of the gray building → 2F wall map reveals all 3 Port Gellhorn stash codes.',
+        tipKo: '회색 건물 외부 계단 → 2층 벽 지도를 조사하면 Port Gellhorn 3곳 코드가 메모에 한 번에 등록됨.',
+        clueEn: 'Inspecting the 2F wall map logs Brooks Boatworks (6823), La Cascara Motel (6969), and Kingpin Bowling (0300) into your notes simultaneously.',
+        clueKo: '2층 벽 지도 조사 시 브룩스(6823), 라 카스카라 모텔(6969), 킹핀 볼링장(0300) 3곳 코드가 메모에 자동 기록됩니다.',
+        aliases: ['브룩스', '부룩스', '보트웍스', '보트', '조선소', '회색건물', '포트겔혼', '포트갤혼', '겔혼', '갤혼', 'brooks', 'broks', 'boatworks', 'boat', 'portgellhorn', 'gellhorn', 'gellorn', 'gelhorn']
+      },
+      // 10
+      {
+        id: 'la-cascara-motel',
+        en: 'La Cascara Motel',
+        ko: '라 카스카라 모텔 부관실',
+        region: 'port-gellhorn',
+        subRegionEn: 'Port Gellhorn',
+        subRegionKo: '포트 겔혼',
+        category: 'hideout',
+        codes: [{ labelEn: 'Back Office Safe', labelKo: '부관실 금고', code: '6969' }],
+        rewards: ['cash'],
+        tipEn: 'Motel back office safe. Code also listed on Brooks Boatworks 2F wall map.',
+        tipKo: '모텔 부관실 금고. Brooks Boatworks 2층 벽 지도에서 단서 확인 가능.',
+        aliases: ['라카스카라', '카스카라', '카스칼라', '모텔', '부관실', '포트겔혼', '겔혼', 'lacascara', 'cascara', 'kascara', 'motel', 'gellhorn', 'gellorn']
+      },
+      // 11
+      {
+        id: 'kingpin-bowling',
+        en: 'Kingpin Bowling',
+        ko: '킹핀 볼링장 북동쪽 사무실',
+        region: 'port-gellhorn',
+        subRegionEn: 'Port Gellhorn',
+        subRegionKo: '포트 겔혼',
+        category: 'hideout',
+        codes: [{ labelEn: 'NE Office Safe', labelKo: '북동쪽 사무실 금고', code: '0300', alt: '0330' }],
+        rewards: ['cash'],
+        tipEn: 'Northeast office inside bowling alley. Leading 0 required (try 0330 if 0300 fails).',
+        tipKo: '볼링장 북동쪽 사무실. 앞자리 0 필수, 안 열리면 0330 시도.',
+        aliases: ['킹핀', '킹핑', '볼링', '볼링장', '북동쪽', '포트겔혼', '겔혼', 'kingpin', 'kingpn', 'bowling', 'boling', 'gellhorn', 'gellorn']
+      },
+      // 12
+      {
+        id: 'sunrise-rv-park',
+        en: 'Sunrise RV Park Dock Shed',
+        ko: '선라이즈 RV 파크 부두 창고',
+        region: 'port-gellhorn',
+        subRegionEn: 'Kingfishers Hideout',
+        subRegionKo: '킹피셔스 작업장',
+        category: 'hideout',
+        codes: [{ labelEn: 'Dock Shed Safe', labelKo: '부두 창고 금고', code: '6769' }],
+        rewards: ['cash'],
+        tipEn: 'Kingfishers stash located inside the dock shed.',
+        tipKo: 'Kingfishers 불법 작업장. 부두 쪽 창고 내부.',
+        aliases: ['선라이즈', '썬라이즈', 'rv', '알브이', '캠핑카', '부두창고', '킹피셔', '킹피셔스', 'sunrise', 'sunrize', 'rvpark', 'dock', 'shed', 'kingfishers']
+      },
+      // 13
+      {
+        id: 'nova-auto-junkyard',
+        en: 'Nova Auto Junkyard Garage',
+        ko: '노바 오토 폐차장 차고',
+        region: 'leonard-county',
+        subRegionEn: 'Hamlet',
+        subRegionKo: '햄릿',
+        category: 'hideout',
+        codes: [{ labelEn: 'Garage Safe', labelKo: '차고 금고', code: '7777' }],
+        rewards: ['cash'],
+        tipEn: 'Hamlet junkyard. Clue on adjacent room wall and lowrider license plate inside.',
+        tipKo: 'Hamlet 지역 폐차장. 옆방 벽 및 차고 내 로우라이더 번호판에 단서.',
+        aliases: ['노바', '노바오토', '폐차장', '정크야드', '햄릿', '함렛', '로우라이더', '번호판', '레오나드', 'nova', 'auto', 'junkyard', 'hamlet', 'lowrider']
+      },
+      // 14
+      {
+        id: 'farm-fix-meth-lab',
+        en: 'Farm Fix Meth Lab',
+        ko: '팜 픽스 작업장 (Waning Sands)',
+        region: 'leonard-county',
+        subRegionEn: 'Waning Sands',
+        subRegionKo: '웨이닝 샌즈',
+        category: 'hideout',
+        codes: [{ labelEn: 'Lab Safe', labelKo: '작업장 금고', code: '2121' }],
+        rewards: ['cash'],
+        tipEn: 'Waning Sands lab. Number circled in red on the lab notepad.',
+        tipKo: 'Waning Sands 연구실. 책상 메모장에 빨간 동그라미로 적힌 숫자.',
+        aliases: ['팜픽스', '팜', '픽스', '메스', '작업장', '농장', '웨이닝샌즈', '샌즈', '레오나드', 'farmfix', 'farm', 'fix', 'meth', 'lab', 'waning', 'sands']
+      },
+      // 15
+      {
+        id: 'drip-drops-sneaker',
+        en: 'Illegal Sneaker Trade / Drip Drops',
+        ko: '드립 드롭스 스니커즈 작업장',
+        region: 'vice-city',
+        subRegionEn: 'Jules Shopping Mall',
+        subRegionKo: '줄스 쇼핑몰',
+        category: 'hideout',
+        codes: [{ labelEn: '2F Stash Door / Safe', labelKo: '2층 작업장 문·금고', code: '4124' }],
+        rewards: ['cash'],
+        tipEn: 'Read memo in backroom safe at Jules Shopping Mall, then cross street to 2F, 3rd door on right.',
+        tipKo: 'Jules 쇼핑몰 뒷방 첫 금고 메모 확인 후, 길 건너편 2층 오른쪽 3번째 문.',
+        clueEn: 'Step 1: Check memo in the Drip Drops backroom safe inside Jules Mall. Step 2: Cross the street, head up to 2F, open the 3rd door on the right.',
+        clueKo: '1단계: 줄스 쇼핑몰 뒷방 첫 금고 메모 확인 → 2단계: 길 건너편 건물 2층 오른쪽 3번째 문 개방.',
+        aliases: ['드립드롭스', '드립드랍스', '드립', '스니커즈', '신발', '밀거래', '줄스', '쥴스', '쇼핑몰', 'dripdrops', 'drip', 'drops', 'sneaker', 'sniker', 'jules', 'mall']
+      },
+      // 16
+      {
+        id: 'janjaks-garage',
+        en: "Janjak's Garage",
+        ko: '잔작의 차고 (La Perle)',
+        region: 'vice-city',
+        subRegionEn: 'La Perle',
+        subRegionKo: '라 페를',
+        category: 'hideout',
+        codes: [{ labelEn: 'Garage Safe', labelKo: '차고 금고', code: '4444' }],
+        rewards: ['cash'],
+        tipEn: 'Vice City (La Perle). Clue is on a sticky note stuck to the fridge.',
+        tipKo: '바이스 시티 La Perle 구역. 내부 냉장고에 붙은 포스트잇이 단서.',
+        aliases: ['잔작', '쟌작', '잔잭', '장작', '차고', '라페를', '라페르', '냉장고', '바이스시티', 'janjak', 'janjaks', 'janjack', 'laperle', 'vicecity']
+      },
+      // 17
+      {
+        id: 'casa-guardia',
+        en: 'Casa Guardia',
+        ko: '카사 과르디아 (Little Cuba)',
+        region: 'vice-city',
+        subRegionEn: 'Little Cuba',
+        subRegionKo: '리틀 쿠바',
+        category: 'hideout',
+        codes: [{ labelEn: 'Hideout Safe', labelKo: '작업장 금고', code: '1965' }],
+        rewards: ['cash'],
+        tipEn: 'The Guardia Brothers hideout in Little Cuba.',
+        tipKo: '리틀 쿠바 The Guardia Brothers 불법 작업장.',
+        aliases: ['카사과르디아', '과르디아', '가르디아', '구아르디아', '리틀쿠바', '쿠바', 'casa', 'guardia', 'gardia', 'littlecuba', 'cuba']
+      },
+      // 18
+      {
+        id: 'saber-shipping-yard',
+        en: 'Saber Shipping Yard Office',
+        ko: '세이버 쉬핑 야드 사무실',
+        region: 'vice-city',
+        subRegionEn: 'Little Cuba',
+        subRegionKo: '리틀 쿠바',
+        category: 'hideout',
+        codes: [{ labelEn: 'Office Safe', labelKo: '사무실 금고', code: '8046' }],
+        rewards: ['cash'],
+        tipEn: 'Inside The Guardia Brothers shipping yard office in Little Cuba.',
+        tipKo: '리틀 쿠바 The Guardia Brothers 선적장 사무실 내부.',
+        aliases: ['세이버', '사이버', '쉬핑', '시핑', '야드', '선적장', '리틀쿠바', '과르디아', 'saber', 'sabre', 'shipping', 'shiping', 'yard', 'littlecuba']
+      },
+      // 19
+      {
+        id: 'saber-shipping-facility',
+        en: 'Saber Shipping Facility',
+        ko: '세이버 쉬핑 창고 시설',
+        region: 'vice-city',
+        subRegionEn: 'Little Cuba',
+        subRegionKo: '리틀 쿠바',
+        category: 'hideout',
+        codes: [{ labelEn: 'Facility Safe', labelKo: '시설 금고', code: '1122', alt: '1965' }],
+        rewards: ['cash'],
+        tipEn: 'Shipping facility safe. Try 1122 first, or 1965.',
+        tipKo: '세이버 선적 시설 금고. 1122가 안 맞으면 1965 시도.',
+        aliases: ['세이버', '사이버', '쉬핑', '시핑', '시설', '창고시설', '퍼실리티', '리틀쿠바', 'saber', 'sabre', 'shipping', 'facility', 'littlecuba']
+      },
+      // 20
+      {
+        id: 'biker-hideout',
+        en: 'Biker Hideout',
+        ko: '바이커 은신처',
+        region: 'leonard-county',
+        subRegionEn: 'Leonard County',
+        subRegionKo: '레오나드 카운티',
+        category: 'hideout',
+        codes: [{ labelEn: 'Hideout Safe', labelKo: '은신처 금고', code: '1982' }],
+        rewards: ['cash'],
+        tipEn: 'Founding year printed on the black flag next to the backroom exit.',
+        tipKo: '뒷방 출구 옆 검은 깃발에 적힌 창립 연도가 비번.',
+        aliases: ['바이커', '오토바이', '폭주족', '은신처', '하이드아웃', '깃발', 'biker', 'byker', 'hideout', 'hidout', 'flag']
+      },
+      // 21
+      {
+        id: 'pelican-valley-lab',
+        en: 'Pelican Valley Abandoned Lab',
+        ko: '펠리컨 밸리 폐쇄 연구소',
+        region: 'grassrivers',
+        subRegionEn: 'Gullet Marsh / Watson Bay',
+        subRegionKo: '걸릿 마시 / 왓슨 베이',
+        category: 'openworld',
+        codes: [
+          { labelEn: 'Computer', labelKo: '컴퓨터', code: 'CLEAVES' },
+          { labelEn: 'Safe', labelKo: '금고', code: '0072' },
+          { labelEn: 'Dock Door', labelKo: '부두 문', code: '0212' }
+        ],
+        rewards: ['weapon', 'cash'],
+        rewardDetailEn: 'Unique Weapon: Crabshack VF5 SMG',
+        rewardDetailKo: '고유 무기: Crabshack VF5 기관단총',
+        tipEn: 'Use floor clue for PC (CLEAVES) → 0036×2 opens safe (0072) → use safe code (0212) on dock door for unique Crabshack VF5 SMG.',
+        tipKo: '바닥 메모로 컴퓨터(CLEAVES) 접속 → 0036×2로 금고(0072) 개방 → 금고 안 코드(0212)로 부두 문 열면 고유 기관단총 Crabshack VF5 획득.',
+        clueEn: '3-step chain puzzle: 1) Log in to terminal with CLEAVES. 2) Double 0036 → enter 0072 on the lab safe. 3) Take 0212 to the locked dock door for the Crabshack VF5.',
+        clueKo: '3단계 연계 퍼즐: ① 터미널에 CLEAVES 입력 → ② 0036×2 계산값 0072로 금고 개방 → ③ 획득한 0212로 부두 문을 열면 고유 무기 획득.',
+        aliases: ['펠리칸', '펠리컨', '페리칸', '페리컨', '팔리칸', '밸리', '벨리', '폐쇄연구소', '연구소', '걸릿', '마시', '왓슨베이', '크랩쉑', '크랩', 'vf5', '기관단총', '고유무기', '클리브스', 'pelican', 'pelcan', 'pelikan', 'pelikn', 'valley', 'gullet', 'marsh', 'watson', 'crabshack', 'vf5', 'cleaves']
+      },
+      // 22
+      {
+        id: 'black-eagle-warehouse',
+        en: 'Black Eagle Warehouse',
+        ko: '블랙 이글 창고 (문 / 금고)',
+        region: 'other',
+        subRegionEn: 'Open World',
+        subRegionKo: '오픈월드',
+        category: 'openworld',
+        codes: [
+          { labelEn: 'Door', labelKo: '창고 문', code: '789987' },
+          { labelEn: 'Safe', labelKo: '내부 금고', code: '031462' }
+        ],
+        rewards: ['cash'],
+        tipEn: 'Unlock exterior door (789987) first, then interior safe (031462, leading 0 required).',
+        tipKo: '먼저 외부 창고 문(789987)을 열고 들어가 내부 금고(031462, 앞자리 0 필수)를 개방.',
+        aliases: ['블랙이글', '블랙', '이글', '블랙이글창고', '독수리', '검은독수리', '창고', 'blackeagle', 'blak', 'egle', 'black', 'eagle', 'warehouse']
+      },
+      // 23
+      {
+        id: 'cottonmouth-lake-trailer',
+        en: 'Cottonmouth Lake Trailer',
+        ko: '코튼마우스 호수 트레일러 금고',
+        region: 'grassrivers',
+        subRegionEn: 'South Grassrivers',
+        subRegionKo: '그래스리버스 남쪽',
+        category: 'openworld',
+        codes: [{ labelEn: 'Trailer Safe', labelKo: '트레일러 금고', code: '44017' }],
+        rewards: ['collectible', 'cash'],
+        rewardDetailEn: 'Collectible Card inside',
+        rewardDetailKo: '수집 카드 포함',
+        tipEn: 'Trailer south of Grassrivers. Code is on the postcard on the wall beside the bed.',
+        tipKo: 'Grassrivers 남쪽 트레일러. 침대 옆 벽에 붙은 엽서 속 숫자.',
+        aliases: ['코튼마우스', '코튼', '커튼마우스', '호수', '트레일러', '그래스리버스', '그래스리버', '엽서', '수집카드', '카드', 'cottonmouth', 'cotonmouth', 'cotton', 'lake', 'trailer', 'grassrivers', 'collectible']
+      },
+      // 24
+      {
+        id: 'marbelle-hotel',
+        en: 'Marbelle Hotel Safe',
+        ko: '마르벨 호텔 최상층 금고',
+        region: 'vice-city',
+        subRegionEn: 'Crosstown',
+        subRegionKo: '크로스타운',
+        category: 'openworld',
+        codes: [{ labelEn: 'Top Floor Safe', labelKo: '최상층 금고', code: '955214' }],
+        rewards: ['collectible', 'cash'],
+        rewardDetailEn: 'Silent Hill Easter Egg',
+        rewardDetailKo: '사일런트 힐 이스터에그',
+        tipEn: 'Top floor wall note in Marbelle Hotel (Crosstown). Silent Hill Easter Egg.',
+        tipKo: 'Crosstown 마르벨 호텔 최상층 벽 메모. 사일런트 힐 오마주 이스터에그.',
+        aliases: ['마르벨', '마르밸', '마벨', '마벨호텔', '마블호텔', '호텔', '크로스타운', '사일런트힐', '이스터에그', 'marbelle', 'marbel', 'marvel', 'hotel', 'crosstown', 'silenthill', 'easteregg']
+      },
+      // 25
+      {
+        id: 'leonida-carrier-warehouse',
+        en: 'Leonida Carrier Warehouse',
+        ko: '레오니다 캐리어 창고 뒷사무실',
+        region: 'vice-city',
+        subRegionEn: 'Vice City',
+        subRegionKo: '바이스 시티',
+        category: 'openworld',
+        codes: [{ labelEn: 'Back Office Safe', labelKo: '뒷사무실 금고', code: '9256' }],
+        rewards: ['cash'],
+        tipEn: 'Enter via the roof hatch to drop into the back office safe.',
+        tipKo: '정문이 잠겨 있으므로 지붕 위 해치(출입구)로 내려가 뒷사무실 금고 접근.',
+        aliases: ['레오니다', '캐리어', '케리어', '창고', '뒷사무실', '지붕해치', '지붕', '바이스시티', 'leonida', 'carrier', 'carier', 'warehouse', 'roof', 'hatch']
+      },
+      // 26
+      {
+        id: 'chatfield-storage',
+        en: 'Chatfield Storage & Logistics',
+        ko: '챗필드 물류 창고 사무실',
+        region: 'other',
+        subRegionEn: 'Open World',
+        subRegionKo: '오픈월드',
+        category: 'openworld',
+        codes: [{ labelEn: '2F Office Safe', labelKo: '야외 계단 위 사무실', code: '5800' }],
+        rewards: ['cash'],
+        tipEn: 'Clue is on a laptop email inside an open yard container. Safe is in the office up the exterior stairs.',
+        tipKo: '마당 열린 컨테이너 안 노트북 이메일이 단서. 야외 계단 위 사무실에 금고 위치.',
+        aliases: ['챗필드', '채트필드', '쳇필드', '물류', '물류창고', '스토리지', '로지스틱스', '컨테이너', 'chatfield', 'chatfeld', 'storage', 'logistics', 'container']
+      },
+      // 27
+      {
+        id: 'abandoned-house-ambrosia',
+        en: 'Abandoned House (Ambrosia)',
+        ko: '암브로시아 폐가 금고',
+        region: 'other',
+        subRegionEn: 'Ambrosia',
+        subRegionKo: '암브로시아',
+        category: 'openworld',
+        codes: [{ labelEn: 'Safe', labelKo: '금고', code: '23554' }],
+        rewards: ['cash'],
+        tipEn: 'Enter through the roof hole; code is marked above the outdoor outhouse.',
+        tipKo: '지붕 구멍으로 진입. 야외 화장실 위쪽에 코드가 표시되어 있음.',
+        aliases: ['암브로시아', '앰브로시아', '엠브로시아', '폐가', '버려진집', '지붕구멍', '화장실', 'abandoned', 'house', 'ambrosia', 'ambrozia', 'outhouse']
+      },
+      // 28
+      {
+        id: 'abandoned-laundry',
+        en: 'Abandoned Laundry (Belville)',
+        ko: '벨빌 폐쇄 세탁소 벽 금고',
+        region: 'other',
+        subRegionEn: 'Belville',
+        subRegionKo: '벨빌',
+        category: 'openworld',
+        codes: [{ labelEn: 'Wall Safe', labelKo: '벽 금고', code: '62412' }],
+        rewards: ['cash'],
+        tipEn: 'Wall safe tucked inside the abandoned laundromat in Belville.',
+        tipKo: 'Belville 폐쇄 세탁소 안쪽 벽면 매립 금고.',
+        aliases: ['벨빌', '밸빌', '세탁소', '빨래방', '폐쇄세탁소', '런드리', '벽금고', 'abandoned', 'laundry', 'laundromat', 'belville', 'bellville']
+      },
+      // 29
+      {
+        id: 'palmer-fishing-warehouse',
+        en: 'Palmer Fishing Warehouse',
+        ko: '팔머 피싱 창고 금고',
+        region: 'grassrivers',
+        subRegionEn: 'Grassrivers',
+        subRegionKo: '그래스리버스',
+        category: 'openworld',
+        codes: [{ labelEn: 'Warehouse Safe', labelKo: '창고 금고', code: '1886', alt: '1887' }],
+        rewards: ['cash'],
+        tipEn: 'Inside the fishing warehouse. Try 1886 first, or 1887.',
+        tipKo: '낚시 창고 내부 금고. 끝자리 6이 안 맞으면 1887 시도.',
+        aliases: ['팔머', '파머', '피싱', '낚시', '낚시창고', '어업', 'palmer', 'parmer', 'fishing', 'warehouse']
+      },
+      // 30
+      {
+        id: 'watson-bay-safehouse',
+        en: 'Watson Bay Safe House',
+        ko: '왓슨 베이 세이프하우스 금고',
+        region: 'grassrivers',
+        subRegionEn: 'Watson Bay',
+        subRegionKo: '왓슨 베이',
+        category: 'openworld',
+        codes: [{ labelEn: 'Safe', labelKo: '금고', code: '1819' }],
+        rewards: ['cash'],
+        tipEn: 'Safe located inside the Watson Bay Safe House.',
+        tipKo: '왓슨 베이 세이프하우스 내부 금고.',
+        aliases: ['왓슨', '왓슨베이', '왓손', '세이프하우스', '안전가옥', 'watson', 'watsn', 'bay', 'safehouse']
+      },
+      // 31
+      {
+        id: 'prairie-court',
+        en: 'Prairie Court House Safe',
+        ko: '프레리 코트 주택 금고',
+        region: 'port-gellhorn',
+        subRegionEn: 'Port Gellhorn',
+        subRegionKo: '포트 겔혼',
+        category: 'openworld',
+        codes: [{ labelEn: 'House Safe', labelKo: '주택 금고', code: '3260' }],
+        rewards: ['cash'],
+        tipEn: 'Safe inside the house at Prairie Court, Port Gellhorn.',
+        tipKo: '포트 겔혼 Prairie Court 주택 내부 금고.',
+        aliases: ['프레리', '프래리', '프레리코트', '코트', '주택', '포트겔혼', '겔혼', 'prairie', 'prarie', 'court', 'gellhorn', 'gellorn']
+      },
+      // 32
+      {
+        id: 'stormys-safe',
+        en: "Stormy's Safe",
+        ko: '스토미의 금고',
+        region: 'other',
+        subRegionEn: 'Open World',
+        subRegionKo: '오픈월드',
+        category: 'openworld',
+        codes: [{ labelEn: 'Safe', labelKo: '금고', code: '7869' }],
+        rewards: ['cash'],
+        tipEn: 'Hidden open-world safe. Use the Map/YouTube button for exact pin.',
+        tipKo: '오픈월드 숨겨진 금고. 영상/지도 버튼으로 정확 위치 확인 권장.',
+        aliases: ['스토미', '스톰미', '스톰', 'stormy', 'stormys', 'stormi', 'storm']
+      },
+      // 33
+      {
+        id: 'room-115',
+        en: 'Room 115 Safe',
+        ko: '115호 객실 금고',
+        region: 'other',
+        subRegionEn: 'Open World',
+        subRegionKo: '오픈월드',
+        category: 'openworld',
+        codes: [{ labelEn: 'Room Safe', labelKo: '객실 금고', code: '4242' }],
+        rewards: ['cash'],
+        tipEn: 'Safe located inside Room 115.',
+        tipKo: '115호 객실 내부에 숨겨진 금고.',
+        aliases: ['115', '115호', '115호실', '객실', '룸115', 'room115', 'room']
+      },
+      // 34
+      {
+        id: 'slum-house',
+        en: 'Slum House Safe',
+        ko: '슬럼 하우스(빈민가) 금고',
+        region: 'other',
+        subRegionEn: 'Open World',
+        subRegionKo: '오픈월드',
+        category: 'openworld',
+        codes: [{ labelEn: 'Safe', labelKo: '금고', code: '9790' }],
+        rewards: ['cash'],
+        tipEn: 'Safe inside the Slum House.',
+        tipKo: '빈민가 주택 내부 금고.',
+        aliases: ['슬럼', '슬럼하우스', '빈민가', 'slum', 'slumhouse', 'house']
+      },
+      // 35
+      {
+        id: 'party-house-key-lento',
+        en: 'Party House Garage (Key Lento)',
+        ko: '키 렌토 파티 하우스 차고 문',
+        region: 'other',
+        subRegionEn: 'Key Lento',
+        subRegionKo: '키 렌토',
+        category: 'openworld',
+        codes: [{ labelEn: 'Garage Door', labelKo: '차고 문', code: '092319' }],
+        rewards: ['cash'],
+        tipEn: 'Garage door at the Party House in Key Lento. Leading 0 required (6 digits).',
+        tipKo: 'Key Lento 파티 하우스 차고 문. 앞자리 0까지 6자리 필수 입력.',
+        aliases: ['파티하우스', '파티', '키렌토', '키랜토', '렌토', '차고', 'party', 'partyhouse', 'keylento', 'lento', 'garage']
+      },
+      // 36
+      {
+        id: 'grayson-garage',
+        en: "Grayson's Garage",
+        ko: "그레이슨 차고 문 ('74 Vamos)",
+        region: 'other',
+        subRegionEn: 'Open World',
+        subRegionKo: '오픈월드',
+        category: 'openworld',
+        codes: [{ labelEn: 'Garage Door', labelKo: '차고 문', code: '2727' }],
+        rewards: ['vehicle'],
+        rewardDetailEn: "Vehicle: '74 Vamos",
+        rewardDetailKo: "차량: '74 Vamos 보관",
+        tipEn: "Unlocks the garage containing the '74 Vamos vehicle.",
+        tipKo: "차고 문 개방 시 클래식 차량 '74 Vamos가 보관되어 있음.",
+        aliases: ['그레이슨', '그래이슨', '그레이손', '바모스', '74바모스', '차량', '클래식카', '차고', 'grayson', 'grason', 'greyson', 'vamos', '74vamos', 'vehicle', 'car', 'garage']
+      },
+      // 37
+      {
+        id: 'aunties-place',
+        en: "Auntie's Place Garage",
+        ko: '이모네 집 차고 문 (La Perle)',
+        region: 'vice-city',
+        subRegionEn: 'La Perle',
+        subRegionKo: '라 페를',
+        category: 'openworld',
+        codes: [{ labelEn: 'Garage Door', labelKo: '차고 문', code: '92665' }],
+        rewards: ['cash'],
+        tipEn: "Garage door at Auntie's Place in La Perle, Vice City.",
+        tipKo: '바이스 시티 La Perle 구역 이모네 집 차고 문.',
+        aliases: ['이모네', '이모네집', '앤티스', '안티스', '라페를', '라페르', '바이스시티', '차고', 'auntie', 'aunties', 'aunty', 'place', 'laperle', 'garage']
+      },
+      // 38
+      {
+        id: 'red-apple-orchard',
+        en: 'Red Apple Orchard Garage',
+        ko: '레드 애플 과수원 차고 문',
+        region: 'leonard-county',
+        subRegionEn: 'Leonard County',
+        subRegionKo: '레오나드 카운티',
+        category: 'openworld',
+        codes: [{ labelEn: 'Garage Door (6-digit)', labelKo: '차고 문 (6자리)', code: '360782' }],
+        rewards: ['cash'],
+        tipEn: 'Locked 6-digit garage door at Red Apple Orchard.',
+        tipKo: '레드 애플 과수원 잠긴 차고 문 (6자리).',
+        aliases: ['레드애플', '레드에플', '사과', '과수원', '오차드', '차고', 'redapple', 'redaple', 'red', 'apple', 'aple', 'orchard', 'garage']
+      },
+      // 39
+      {
+        id: 'mount-kalaga-park',
+        en: 'Mount Kalaga National Park Door',
+        ko: '마운트 칼라가 국립공원 문',
+        region: 'other',
+        subRegionEn: 'Mount Kalaga',
+        subRegionKo: '마운트 칼라가',
+        category: 'openworld',
+        codes: [{ labelEn: 'Park Door', labelKo: '국립공원 문', code: '69185' }],
+        rewards: ['cash'],
+        tipEn: 'Locked door inside Mount Kalaga National Park.',
+        tipKo: '마운트 칼라가 국립공원 내부 잠긴 문.',
+        aliases: ['칼라가', '마운트칼라가', '칼라가산', '카라가', '국립공원', '공원', 'kalaga', 'kalga', 'calaga', 'mount', 'national', 'park', 'door']
+      },
+      // 40
+      {
+        id: 'south-point-airfield',
+        en: 'South Point Airfield Door',
+        ko: '사우스 포인트 비행장 문',
+        region: 'other',
+        subRegionEn: 'South Point',
+        subRegionKo: '사우스 포인트',
+        category: 'openworld',
+        codes: [{ labelEn: 'Airfield Door', labelKo: '비행장 문', code: '2341' }],
+        rewards: ['cash'],
+        tipEn: 'Locked door at South Point Airfield.',
+        tipKo: '사우스 포인트 비행장 시설의 잠긴 문.',
+        aliases: ['사우스포인트', '사우스', '포인트', '비행장', '공항', 'southpoint', 'south', 'point', 'airfield', 'door']
+      }
+    ];
+
+    /**
+     * =========================================================================
+     * 2. BILINGUAL UI DICTIONARY (KO / EN)
+     * =========================================================================
+     */
+    const I18N = {
+      ko: {
+        appTitle: 'GTA 6 비밀번호',
+        guideBtn: '랜덤 금고 공략',
+        searchPlaceholder: '장소·초성(ㅍㄹㅋ)·오타(문스튼, monstone)·무기(KZ-59)·코드 검색...',
+        progressText: (done, total, pct) => `완료 ${done} / ${total} (${pct}%)`,
+        uncompletedOnly: '안 턴 곳만 보기',
+        regionLabel: '지역',
+        rewardLabel: '보상',
+        categoryLabel: '유형',
+        resetAllFilters: '필터 초기화',
+        regions: {
+          all: '전체',
+          'vice-city': '바이스 시티',
+          'port-gellhorn': '포트 겔혼',
+          'leonard-county': '레오나드 카운티',
+          grassrivers: '그래스리버스·왓슨 베이',
+          other: '키 렌토·암브로시아·기타'
+        },
+        rewards: {
+          all: '전체',
+          weapon: '고유 무기',
+          vehicle: '차량',
+          collectible: '수집품·이스터에그',
+          cash: '현금·전리품',
+          mission: '미션 진행'
+        },
+        categories: {
+          all: '전체',
+          story: '스토리·사이드',
+          hideout: '작업장·은신처',
+          openworld: '오픈월드·차고'
+        },
+        leadingZeroGlobal: '※ 앞자리 0이 있는 코드는 0까지 입력 필수',
+        leadingZeroBadge: '앞자리 0 필수',
+        altLabel: '대체',
+        fuzzyBadge: '유사 검색',
+        entryTipLabel: '진입 팁',
+        clueToggleShow: '단서·상세 보기',
+        clueToggleHide: '단서 접기',
+        ytBtn: '영상 위치',
+        mapBtn: '지도 찾기',
+        shareBtn: '링크 복사',
+        doneTooltip: '완료 체크',
+        summaryAll: (shown, total) => `총 ${total}곳 중 ${shown}곳 표시`,
+        summarySearch: (shown, q) => `"${q}" 검색 결과 ${shown}곳`,
+        emptyTitle: '일치하는 장소를 찾지 못했습니다',
+        emptyDesc: '조금 다른 철자나 초성(예: ㅍㄹㅋ, ㅁㅅㅌ), 보상명(KZ-59, Vamos)으로 검색하거나 필터를 초기화해 보세요.',
+        emptyReset: '검색 및 필터 초기화',
+        footerNote: '비밀번호를 클릭하면 앞자리 0까지 그대로 복사됩니다. 단축키 / 로 바로 검색하세요.',
+        copyPageUrl: '전체 사이트 링크 복사',
+        copiedCode: (code) => `복사됨: ${code}`,
+        copiedShare: '직접 이동 링크가 복사되었습니다!',
+        copiedPageUrl: '전체 사이트 주소가 복사되었습니다!',
+        resetDoneToast: '완료 기록을 초기화했습니다.',
+        resetModalTitle: '완료 기록을 초기화할까요?',
+        resetModalDesc: '체크해 둔 모든 금고·문·차고 완료 기록이 해제됩니다.',
+        cancel: '취소',
+        confirmReset: '초기화',
+        guideModalTitle: '일반 상점·은행 랜덤 금고 공략',
+        guideModalOk: '확인',
+        guideModalHtml: `
+          <div class="p-3.5 rounded-xl bg-obsidian border border-borderCrisp">
+            <div class="text-xs font-extrabold uppercase tracking-wider text-viceCoral mb-1">1. 왜 일반 상점·은행은 비번이 없나요?</div>
+            <p class="text-gray-300">스토리 미션 외 자유 모드에서 터는 일반 편의점·전당포·은행 금고는 <strong class="text-white">강도할 때마다 번호가 무작위로 바뀝니다.</strong> 아래 3가지 인게임 공략으로 열 수 있습니다.</p>
+          </div>
+          <div class="p-3.5 rounded-xl bg-obsidian border border-borderCrisp">
+            <div class="text-xs font-extrabold uppercase tracking-wider text-viceCyan mb-1">2. 직원 협박 (일반 상점 가장 빠름)</div>
+            <p class="text-gray-300">먼저 가게 안쪽 금고 위치를 눈으로 확인한 뒤, 계산원이나 매니저에게 총을 겨누고 협박하면 <strong class="text-white">'금고 비밀번호 묻기 (Ask for safe code)'</strong> 상호작용이 열립니다.</p>
+          </div>
+          <div class="p-3.5 rounded-xl bg-obsidian border border-borderCrisp">
+            <div class="text-xs font-extrabold uppercase tracking-wider text-viceCyan mb-1">3. 포커스 모드 (Focus Mode) 단서 탐색</div>
+            <p class="text-gray-300">양쪽 아날로그 스틱(<strong class="text-white">L3 + R3</strong>)을 동시에 눌러 포커스 모드를 켜면 주변 <strong class="text-white">포스트잇, 노트북 화면, 화이트보드, 쓰러진 경비원</strong>이 가진 비번 단서가 밝게 강조됩니다.</p>
+          </div>
+          <div class="p-3.5 rounded-xl bg-obsidian border border-borderCrisp">
+            <div class="text-xs font-extrabold uppercase tracking-wider text-amber-300 mb-1">4. 강제 개방 (코드 없을 때)</div>
+            <ul class="list-disc pl-4 space-y-1 text-gray-300">
+              <li><strong class="text-white">소형 금고:</strong> 락픽(Lockpick) 사용</li>
+              <li><strong class="text-white">자물쇠 상자:</strong> 스토리 진행 중 얻는 <strong class="text-white">스냅 건(Snap Gun)</strong> 사용</li>
+              <li><strong class="text-white">대형 금고:</strong> 가까이 다가가 상호작용 프롬프트로 <strong class="text-white">점착폭탄(Sticky Bomb)</strong> 부착 후 폭파 (단순 투척 불가 · 큰 소음으로 경찰 즉시 출동 및 평판 하락 주의)</li>
+            </ul>
+          </div>
+          <div class="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/30">
+            <div class="text-xs font-extrabold text-amber-300 mb-0.5">5. 앞자리 0 입력 주의!</div>
+            <p class="text-amber-100/90 text-xs">예: <span class="font-mono font-bold">0420</span>, <span class="font-mono font-bold">0104</span>, <span class="font-mono font-bold">0072</span>, <span class="font-mono font-bold">092319</span> 같은 코드는 맨 앞 <span class="font-mono font-bold">0</span>을 빼고 입력하면 절대 열리지 않습니다.</p>
+          </div>
+        `
+      },
+      en: {
+        appTitle: 'GTA 6 Code Finder',
+        guideBtn: 'Random Safe Guide',
+        searchPlaceholder: 'Search place, typo (monstone, pelcan), reward (KZ-59), or code...',
+        progressText: (done, total, pct) => `Completed ${done} / ${total} (${pct}%)`,
+        uncompletedOnly: 'Uncompleted Only',
+        regionLabel: 'Region',
+        rewardLabel: 'Reward',
+        categoryLabel: 'Type',
+        resetAllFilters: 'Reset Filters',
+        regions: {
+          all: 'All Regions',
+          'vice-city': 'Vice City',
+          'port-gellhorn': 'Port Gellhorn',
+          'leonard-county': 'Leonard County',
+          grassrivers: 'Grassrivers / Watson Bay',
+          other: 'Key Lento / Ambrosia / Other'
+        },
+        rewards: {
+          all: 'All Rewards',
+          weapon: 'Unique Weapon',
+          vehicle: 'Vehicle',
+          collectible: 'Collectible / Easter Egg',
+          cash: 'Cash / Loot',
+          mission: 'Story / Mission'
+        },
+        categories: {
+          all: 'All Types',
+          story: 'Story & Side',
+          hideout: 'Hideouts & Labs',
+          openworld: 'Open World & Garages'
+        },
+        leadingZeroGlobal: '※ Always enter leading zeros (0)',
+        leadingZeroBadge: 'Leading 0!',
+        altLabel: 'ALT',
+        fuzzyBadge: 'Fuzzy match',
+        entryTipLabel: 'Entry Tip',
+        clueToggleShow: 'Show Clue',
+        clueToggleHide: 'Hide Clue',
+        ytBtn: 'YouTube',
+        mapBtn: 'Find on Map',
+        shareBtn: 'Share',
+        doneTooltip: 'Toggle completed',
+        summaryAll: (shown, total) => `Showing ${shown} of ${total} locations`,
+        summarySearch: (shown, q) => `${shown} results for "${q}"`,
+        emptyTitle: 'No matching locations found',
+        emptyDesc: 'Try another keyword, reward name (KZ-59, Vamos), region, or reset active filters.',
+        emptyReset: 'Reset Search & Filters',
+        footerNote: 'Click any code to copy instantly (preserves leading zeros). Press / to focus search.',
+        copyPageUrl: 'Copy Site Link',
+        copiedCode: (code) => `Copied: ${code}`,
+        copiedShare: 'Direct card link copied!',
+        copiedPageUrl: 'Site link copied to clipboard!',
+        resetDoneToast: 'Completion progress has been reset.',
+        resetModalTitle: 'Reset all completed items?',
+        resetModalDesc: 'This will uncheck every safe, door, and garage you have marked as done.',
+        cancel: 'Cancel',
+        confirmReset: 'Reset',
+        guideModalTitle: 'Random Shop & Bank Safe Guide',
+        guideModalOk: 'Got it',
+        guideModalHtml: `
+          <div class="p-3.5 rounded-xl bg-obsidian border border-borderCrisp">
+            <div class="text-xs font-extrabold uppercase tracking-wider text-viceCoral mb-1">1. Why are regular shops & banks not listed?</div>
+            <p class="text-gray-300">Outside of fixed story missions, general stores, pawn shops, and banks <strong class="text-white">randomize their safe codes on every robbery</strong>. Use the 3 methods below.</p>
+          </div>
+          <div class="p-3.5 rounded-xl bg-obsidian border border-borderCrisp">
+            <div class="text-xs font-extrabold uppercase tracking-wider text-viceCyan mb-1">2. Threaten the Cashier (Fastest in Shops)</div>
+            <p class="text-gray-300">Spot the safe first, then aim at the cashier or store manager to unlock the <strong class="text-white">"Ask for safe code"</strong> intimidation prompt.</p>
+          </div>
+          <div class="p-3.5 rounded-xl bg-obsidian border border-borderCrisp">
+            <div class="text-xs font-extrabold uppercase tracking-wider text-viceCyan mb-1">3. Focus Mode (L3 + R3) Clue Scan</div>
+            <p class="text-gray-300">Press both analog sticks simultaneously to activate <strong class="text-white">Focus Mode</strong>. Nearby sticky notes, laptops, whiteboards, or downed guards holding the code will glow.</p>
+          </div>
+          <div class="p-3.5 rounded-xl bg-obsidian border border-borderCrisp">
+            <div class="text-xs font-extrabold uppercase tracking-wider text-amber-300 mb-1">4. Forced Entry (No Code)</div>
+            <ul class="list-disc pl-4 space-y-1 text-gray-300">
+              <li><strong class="text-white">Small Safes:</strong> Use a Lockpick.</li>
+              <li><strong class="text-white">Padlocked Boxes:</strong> Use the <strong class="text-white">Snap Gun</strong> unlocked during story progression.</li>
+              <li><strong class="text-white">Large Safes:</strong> Walk right up and use the interaction prompt to plant a <strong class="text-white">Sticky Bomb</strong> (simply throwing it will not open the safe; triggers immediate police response & reputation penalty).</li>
+            </ul>
+          </div>
+          <div class="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/30">
+            <div class="text-xs font-extrabold text-amber-300 mb-0.5">5. Never Skip Leading Zeros (0)</div>
+            <p class="text-amber-100/90 text-xs">Codes like <span class="font-mono font-bold">0420</span>, <span class="font-mono font-bold">0104</span>, <span class="font-mono font-bold">0072</span>, and <span class="font-mono font-bold">092319</span> require entering the leading <span class="font-mono font-bold">0</span>.</p>
+          </div>
+        `
+      }
+    };
+
+    /**
+     * =========================================================================
+     * 3. TYPO-TOLERANT BILINGUAL FUZZY SEARCH ENGINE (KO + EN)
+     *    - Hangul Jamo decomposition (문스튼 -> 문스톤, 펠리컨 -> 펠리칸, 마르밸 -> 마르벨)
+     *    - Hangul Choseong matching (ㅁㅅㅌ, ㅍㄹㅋ, ㅂㄹㅇㄱ, ㄱㄹㅇㅅ, ㅋㄹㄱ)
+     *    - Normalized Damerau-Levenshtein + Bigram/Trigram Dice + Subsequence
+     * =========================================================================
+     */
+    const CHOSEONG = ['ㄱ','ㄲ','ㄴ','ㄷ','ㄸ','ㄹ','ㅁ','ㅂ','ㅃ','ㅅ','ㅆ','ㅇ','ㅈ','ㅉ','ㅊ','ㅋ','ㅌ','ㅍ','ㅎ'];
+    const JUNGSEONG = ['ㅏ','ㅐ','ㅑ','ㅒ','ㅓ','ㅔ','ㅕ','ㅖ','ㅗ','ㅘ','ㅙ','ㅚ','ㅛ','ㅜ','ㅝ','ㅞ','ㅟ','ㅠ','ㅡ','ㅢ','ㅣ'];
+    const JONGSEONG = ['','ㄱ','ㄲ','ㄳ','ㄴ','ㄵ','ㄶ','ㄷ','ㄹ','ㄺ','ㄻ','ㄼ','ㄽ','ㄾ','ㄿ','ㅀ','ㅁ','ㅂ','ㅄ','ㅅ','ㅆ','ㅇ','ㅈ','ㅊ','ㅋ','ㅌ','ㅍ','ㅎ'];
+    const CHOSEONG_SET = new Set(CHOSEONG);
+
+    function normalizeText(str) {
+      if (!str) return '';
+      return String(str)
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/['’"`\-_.,/&():!?·×→]/g, '')
+        .replace(/\s+/g, '');
+    }
+
+    function normalizeWords(str) {
+      if (!str) return [];
+      return String(str)
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/['’"`\-_.,/&():!?·×→]/g, ' ')
+        .split(/\s+/)
+        .filter(Boolean);
+    }
+
+    function toChoseong(str) {
+      let out = '';
+      for (let i = 0; i < str.length; i++) {
+        const code = str.charCodeAt(i);
+        if (code >= 0xAC00 && code <= 0xD7A3) {
+          out += CHOSEONG[Math.floor((code - 0xAC00) / 588)];
+        } else if (CHOSEONG_SET.has(str[i])) {
+          out += str[i];
+        }
+      }
+      return out;
+    }
+
+    function toJamo(str) {
+      let out = '';
+      for (let i = 0; i < str.length; i++) {
+        const ch = str[i];
+        const code = str.charCodeAt(i);
+        if (code >= 0xAC00 && code <= 0xD7A3) {
+          const offset = code - 0xAC00;
+          const cho = Math.floor(offset / 588);
+          const jung = Math.floor((offset % 588) / 28);
+          const jong = offset % 28;
+          out += CHOSEONG[cho] + JUNGSEONG[jung] + JONGSEONG[jong];
+        } else {
+          out += ch;
+        }
+      }
+      return out;
+    }
+
+    function isPureChoseong(str) {
+      if (!str) return false;
+      for (let i = 0; i < str.length; i++) {
+        if (!CHOSEONG_SET.has(str[i])) return false;
+      }
+      return true;
+    }
+
+    function damerauLevenshtein(a, b) {
+      const m = a.length;
+      const n = b.length;
+      if (m === 0) return n;
+      if (n === 0) return m;
+      const dp = Array.from({ length: m + 1 }, () => new Array(n + 1).fill(0));
+      for (let i = 0; i <= m; i++) dp[i][0] = i;
+      for (let j = 0; j <= n; j++) dp[0][j] = j;
+
+      for (let i = 1; i <= m; i++) {
+        for (let j = 1; j <= n; j++) {
+          const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+          dp[i][j] = Math.min(dp[i - 1][j] + 1, dp[i][j - 1] + 1, dp[i - 1][j - 1] + cost);
+          if (i > 1 && j > 1 && a[i - 1] === b[j - 2] && a[i - 2] === b[j - 1]) {
+            dp[i][j] = Math.min(dp[i][j], dp[i - 2][j - 2] + 1);
+          }
+        }
+      }
+      return dp[m][n];
+    }
+
+    function editSimilarity(a, b) {
+      const maxLen = Math.max(a.length, b.length);
+      if (maxLen === 0) return 1;
+      return 1 - damerauLevenshtein(a, b) / maxLen;
+    }
+
+    function ngramDice(a, b, n) {
+      if (a.length < n || b.length < n) return 0;
+      const map = new Map();
+      for (let i = 0; i <= a.length - n; i++) {
+        const g = a.slice(i, i + n);
+        map.set(g, (map.get(g) || 0) + 1);
+      }
+      let overlap = 0;
+      for (let i = 0; i <= b.length - n; i++) {
+        const g = b.slice(i, i + n);
+        const cnt = map.get(g) || 0;
+        if (cnt > 0) {
+          map.set(g, cnt - 1);
+          overlap++;
+        }
+      }
+      return (2 * overlap) / (a.length - n + 1 + b.length - n + 1);
+    }
+
+    function subsequenceScore(query, target) {
+      if (!query || query.length > target.length) return 0;
+      let qi = 0;
+      let firstIdx = -1;
+      let lastIdx = -1;
+      let consecutive = 0;
+      let prevIdx = -2;
+      for (let ti = 0; ti < target.length && qi < query.length; ti++) {
+        if (target[ti] === query[qi]) {
+          if (firstIdx === -1) firstIdx = ti;
+          if (ti === prevIdx + 1) consecutive++;
+          prevIdx = ti;
+          lastIdx = ti;
+          qi++;
+        }
+      }
+      if (qi < query.length) return 0;
+      const span = lastIdx - firstIdx + 1;
+      return 0.55 * (query.length / span) + 0.45 * (consecutive / Math.max(1, query.length - 1));
+    }
+
+    // Precompute index for instant zero-lag search across all 40 entries
+    const SEARCH_INDEX = LOCATIONS.map((item) => {
+      const codeFields = item.codes.flatMap((c) => [c.code, c.alt, c.labelEn, c.labelKo].filter(Boolean));
+      const regionNames = [
+        I18N.ko.regions[item.region],
+        I18N.en.regions[item.region],
+        item.subRegionEn,
+        item.subRegionKo
+      ].filter(Boolean);
+      const rewardNames = [
+        item.rewardDetailEn,
+        item.rewardDetailKo,
+        ...item.rewards.flatMap((r) => [I18N.ko.rewards[r], I18N.en.rewards[r]])
+      ].filter(Boolean);
+
+      const highPriority = [item.en, item.ko, ...codeFields, ...regionNames, ...rewardNames, ...(item.aliases || [])];
+      const tipPriority = [item.tipEn, item.tipKo, item.clueEn, item.clueKo].filter(Boolean);
+
+      const makeTarget = (raw, weight) => {
+        const norm = normalizeText(raw);
+        const words = normalizeWords(raw).map((w) => ({ norm: w, jamo: toJamo(w) }));
+        return {
+          norm,
+          jamo: toJamo(norm),
+          choseong: toChoseong(norm),
+          words,
+          weight
+        };
+      };
+
+      return {
+        item,
+        targets: [
+          ...highPriority.map((s, idx) => makeTarget(s, idx < 2 ? 1.1 : 1.0)),
+          ...tipPriority.map((s) => makeTarget(s, 0.72))
+        ]
+      };
+    });
+
+    function scoreToken(qNorm, qJamo, qIsCho, target) {
+      if (!target.norm) return { score: 0, fuzzy: false };
+
+      if (target.norm === qNorm) return { score: 1000 * target.weight, fuzzy: false };
+      if (target.norm.startsWith(qNorm)) return { score: 890 * target.weight, fuzzy: false };
+
+      let best = 0;
+      for (const w of target.words) {
+        if (w.norm === qNorm) return { score: 930 * target.weight, fuzzy: false };
+        if (w.norm.startsWith(qNorm)) best = Math.max(best, 840);
+      }
+
+      if (target.norm.includes(qNorm)) best = Math.max(best, 750);
+
+      if (qIsCho && target.choseong) {
+        if (target.choseong.startsWith(qNorm)) best = Math.max(best, 790);
+        else if (target.choseong.includes(qNorm)) best = Math.max(best, 710);
+      }
+
+      if (best > 0) return { score: best * target.weight, fuzzy: false };
+      if (qJamo.length < 2) return { score: 0, fuzzy: false };
+
+      // Incomplete Hangul syllable prefix/substring in Jamo
+      if (target.jamo.includes(qJamo)) {
+        return { score: 670 * target.weight, fuzzy: false };
+      }
+
+      let fuzzy = false;
+
+      // Word-level fuzzy comparison (Levenshtein + bigram/trigram Dice)
+      for (const w of target.words) {
+        if (Math.abs(w.jamo.length - qJamo.length) <= Math.max(3, Math.ceil(qJamo.length * 0.5))) {
+          const sim = editSimilarity(qJamo, w.jamo);
+          const dice = Math.max(ngramDice(qJamo, w.jamo, 2), ngramDice(qJamo, w.jamo, 3));
+          const combined = Math.max(sim, sim * 0.65 + dice * 0.35);
+          if (combined >= 0.62) {
+            const pts = 350 + combined * 310;
+            if (pts > best) { best = pts; fuzzy = true; }
+          }
+        }
+        if (w.jamo.length > qJamo.length && qJamo.length >= 4) {
+          const slice = w.jamo.slice(0, qJamo.length + 1);
+          const sim = editSimilarity(qJamo, slice);
+          if (sim >= 0.72) {
+            const pts = 330 + sim * 290;
+            if (pts > best) { best = pts; fuzzy = true; }
+          }
+        }
+      }
+
+      // Full normalized string comparison + sliding window for compound names
+      if (Math.abs(target.jamo.length - qJamo.length) <= Math.max(4, Math.ceil(qJamo.length * 0.55))) {
+        const sim = editSimilarity(qJamo, target.jamo);
+        const dice = Math.max(ngramDice(qJamo, target.jamo, 2), ngramDice(qJamo, target.jamo, 3));
+        const combined = Math.max(sim, sim * 0.6 + dice * 0.4);
+        if (combined >= 0.60) {
+          const pts = 340 + combined * 300;
+          if (pts > best) { best = pts; fuzzy = true; }
+        }
+      } else if (target.jamo.length > qJamo.length && qJamo.length >= 4) {
+        const winLen = qJamo.length;
+        const step = winLen >= 6 ? 2 : 1;
+        for (let i = 0; i <= target.jamo.length - winLen; i += step) {
+          const sim = editSimilarity(qJamo, target.jamo.slice(i, i + winLen));
+          if (sim >= 0.72) {
+            const pts = 310 + sim * 280;
+            if (pts > best) { best = pts; fuzzy = true; }
+          }
+        }
+      }
+
+      // Ordered subsequence fallback (pelcan -> pelican, kalga -> kalaga, broks -> brooks)
+      if (qJamo.length >= 3) {
+        const subRatio = subsequenceScore(qJamo, target.jamo);
+        if (subRatio >= 0.64) {
+          const pts = 270 + subRatio * 290;
+          if (pts > best) { best = pts; fuzzy = true; }
+        }
+      }
+
+      return { score: best * target.weight, fuzzy };
+    }
+
+    function runFuzzySearch(rawQuery) {
+      const trimmed = rawQuery.trim();
+      if (!trimmed) {
+        return SEARCH_INDEX.map((entry) => ({ item: entry.item, score: 1, isFuzzy: false }));
+      }
+
+      const fullNorm = normalizeText(trimmed);
+      const fullJamo = toJamo(fullNorm);
+      const fullIsCho = isPureChoseong(fullNorm);
+      const tokens = normalizeWords(trimmed).map((t) => ({
+        norm: t,
+        jamo: toJamo(t),
+        isCho: isPureChoseong(t)
+      }));
+
+      const scored = [];
+
+      for (const entry of SEARCH_INDEX) {
+        let fullBest = { score: 0, fuzzy: false };
+        for (const target of entry.targets) {
+          const res = scoreToken(fullNorm, fullJamo, fullIsCho, target);
+          if (res.score > fullBest.score) fullBest = res;
+        }
+
+        let tokenScore = 0;
+        let tokenFuzzy = false;
+        if (tokens.length > 1) {
+          let sum = 0;
+          let hits = 0;
+          for (const tk of tokens) {
+            let tkBest = { score: 0, fuzzy: false };
+            for (const target of entry.targets) {
+              const res = scoreToken(tk.norm, tk.jamo, tk.isCho, target);
+              if (res.score > tkBest.score) tkBest = res;
+            }
+            if (tkBest.score >= 300) {
+              hits++;
+              sum += tkBest.score;
+              if (tkBest.fuzzy) tokenFuzzy = true;
+            }
+          }
+          if (hits === tokens.length) {
+            tokenScore = (sum / tokens.length) * 1.06;
+          } else if (hits > 0 && hits >= Math.ceil(tokens.length * 0.6)) {
+            tokenScore = (sum / tokens.length) * 0.78;
+            tokenFuzzy = true;
+          }
+        }
+
+        const finalScore = Math.max(fullBest.score, tokenScore);
+        const finalFuzzy = fullBest.score >= tokenScore ? fullBest.fuzzy : tokenFuzzy;
+
+        if (finalScore >= 360) {
+          scored.push({ item: entry.item, score: finalScore, isFuzzy: finalFuzzy });
+        }
+      }
+
+      scored.sort((a, b) => b.score - a.score);
+      return scored;
+    }
+
+    /**
+     * =========================================================================
+     * 4. STATE MANAGEMENT & LOCALSTORAGE PERSISTENCE
+     * =========================================================================
+     */
+    const STORAGE_KEYS = {
+      lang: 'gta6_finder_lang_v2',
+      checked: 'gta6_finder_checked_v2'
+    };
+
+    const state = {
+      lang: 'ko',
+      query: '',
+      region: 'all',
+      reward: 'all',
+      category: 'all',
+      uncompletedOnly: false,
+      checkedIds: new Set(),
+      expandedClues: new Set()
+    };
+
+    function loadPersistedState() {
+      try {
+        const savedLang = localStorage.getItem(STORAGE_KEYS.lang);
+        if (savedLang === 'ko' || savedLang === 'en') state.lang = savedLang;
+
+        const savedChecked = localStorage.getItem(STORAGE_KEYS.checked);
+        if (savedChecked) {
+          const arr = JSON.parse(savedChecked);
+          if (Array.isArray(arr)) {
+            const validIds = new Set(LOCATIONS.map((x) => x.id));
+            state.checkedIds = new Set(arr.filter((id) => validIds.has(id)));
+          }
+        }
+      } catch (err) {
+        console.warn('localStorage load failed:', err);
+      }
+    }
+
+    function persistLang() {
+      try { localStorage.setItem(STORAGE_KEYS.lang, state.lang); } catch (e) {}
+    }
+
+    function persistChecked() {
+      try { localStorage.setItem(STORAGE_KEYS.checked, JSON.stringify([...state.checkedIds])); } catch (e) {}
+    }
+
+    /**
+     * =========================================================================
+     * 5. CLIPBOARD (iframe-safe execCommand) & TOAST
+     * =========================================================================
+     */
+    let toastTimer = null;
+
+    function copyToClipboard(text) {
+      try {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.setAttribute('readonly', '');
+        ta.style.position = 'fixed';
+        ta.style.top = '-9999px';
+        ta.style.left = '-9999px';
+        document.body.appendChild(ta);
+        ta.select();
+        ta.setSelectionRange(0, text.length);
+        const ok = document.execCommand('copy');
+        document.body.removeChild(ta);
+        if (ok) return true;
+      } catch (err) {
+        console.warn('execCommand copy error:', err);
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).catch(() => {});
+        return true;
+      }
+      return false;
+    }
+
+    function showToast(msg) {
+      const container = document.getElementById('toastContainer');
+      const inner = document.getElementById('toastInner');
+      document.getElementById('toastMessage').textContent = msg;
+      container.classList.remove('hidden');
+      inner.classList.remove('toast-enter');
+      void inner.offsetWidth;
+      inner.classList.add('toast-enter');
+      if (toastTimer) clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => container.classList.add('hidden'), 1800);
+    }
+
+    /**
+     * =========================================================================
+     * 6. BADGE STYLES & RENDERING ENGINE
+     * =========================================================================
+     */
+    const REGION_ORDER = ['all', 'vice-city', 'port-gellhorn', 'leonard-county', 'grassrivers', 'other'];
+    const REWARD_ORDER = ['all', 'weapon', 'vehicle', 'collectible', 'cash', 'mission'];
+    const CATEGORY_ORDER = ['all', 'story', 'hideout', 'openworld'];
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function getRewardBadgeClass(reward) {
+      switch (reward) {
+        case 'weapon':
+          return 'bg-amber-500/15 text-amber-300 border-amber-500/35';
+        case 'vehicle':
+          return 'bg-cyan-500/15 text-cyan-300 border-cyan-500/35';
+        case 'collectible':
+          return 'bg-purple-500/15 text-purple-300 border-purple-500/35';
+        case 'cash':
+          return 'bg-emerald-500/12 text-emerald-300 border-emerald-500/25';
+        case 'mission':
+          return 'bg-blue-500/12 text-blue-300 border-blue-500/25';
+        default:
+          return 'bg-gray-500/15 text-gray-300 border-gray-500/25';
+      }
+    }
+
+    function getRewardIcon(reward) {
+      switch (reward) {
+        case 'weapon': return '🔫';
+        case 'vehicle': return '🚗';
+        case 'collectible': return '✨';
+        case 'cash': return '💵';
+        case 'mission': return '★';
+        default: return '';
+      }
+    }
+
+    function updateStaticChrome() {
+      const t = I18N[state.lang];
+      document.documentElement.lang = state.lang;
+      document.getElementById('appTitle').textContent = t.appTitle;
+      document.getElementById('guideBtnLabel').textContent = t.guideBtn;
+      document.getElementById('searchInput').placeholder = t.searchPlaceholder;
+      document.getElementById('uncompletedLabel').textContent = t.uncompletedOnly;
+      document.getElementById('regionFilterLabel').textContent = t.regionLabel;
+      document.getElementById('rewardFilterLabel').textContent = t.rewardLabel;
+      document.getElementById('categoryFilterLabel').textContent = t.categoryLabel;
+      document.getElementById('resetAllFiltersText').textContent = t.resetAllFilters;
+      document.getElementById('leadingZeroGlobalTip').textContent = t.leadingZeroGlobal;
+      document.getElementById('emptyTitle').textContent = t.emptyTitle;
+      document.getElementById('emptyDesc').textContent = t.emptyDesc;
+      document.getElementById('emptyResetBtn').textContent = t.emptyReset;
+      document.getElementById('footerNote').textContent = t.footerNote;
+      document.getElementById('copyPageUrlText').textContent = t.copyPageUrl;
+      document.getElementById('resetModalTitle').textContent = t.resetModalTitle;
+      document.getElementById('resetModalDesc').textContent = t.resetModalDesc;
+      document.getElementById('cancelResetBtn').textContent = t.cancel;
+      document.getElementById('confirmResetBtn').textContent = t.confirmReset;
+      document.getElementById('guideModalTitle').textContent = t.guideModalTitle;
+      document.getElementById('guideModalBody').innerHTML = t.guideModalHtml;
+      document.getElementById('guideModalOkBtn').textContent = t.guideModalOk;
+
+      // Language toggle highlight
+      const koBtn = document.getElementById('langKoBtn');
+      const enBtn = document.getElementById('langEnBtn');
+      if (state.lang === 'ko') {
+        koBtn.className = 'px-2.5 py-1 text-xs font-extrabold rounded-lg bg-viceCyan text-gray-950 transition cursor-pointer';
+        enBtn.className = 'px-2.5 py-1 text-xs font-bold rounded-lg text-gray-400 hover:text-white transition cursor-pointer';
+      } else {
+        enBtn.className = 'px-2.5 py-1 text-xs font-extrabold rounded-lg bg-viceCyan text-gray-950 transition cursor-pointer';
+        koBtn.className = 'px-2.5 py-1 text-xs font-bold rounded-lg text-gray-400 hover:text-white transition cursor-pointer';
+      }
+    }
+
+    function updateProgressUI() {
+      const t = I18N[state.lang];
+      const total = LOCATIONS.length;
+      const done = state.checkedIds.size;
+      const pct = Math.round((done / total) * 100);
+      document.getElementById('progressText').textContent = t.progressText(done, total, pct);
+      document.getElementById('progressBarFill').style.width = `${pct}%`;
+
+      // Uncompleted toggle pill visual state
+      const btn = document.getElementById('uncompletedToggleBtn');
+      const dot = document.getElementById('uncompletedDot');
+      btn.setAttribute('aria-pressed', String(state.uncompletedOnly));
+      if (state.uncompletedOnly) {
+        btn.className = 'inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-bold border transition cursor-pointer shrink-0 bg-cyan-400/15 border-viceCyan/60 text-viceCyan';
+        dot.className = 'w-2 h-2 rounded-full bg-viceCyan shadow-[0_0_8px_#22D3EE] transition';
+      } else {
+        btn.className = 'inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-semibold border transition cursor-pointer shrink-0 bg-obsidian border-borderCrisp text-gray-300 hover:text-white hover:border-gray-600';
+        dot.className = 'w-2 h-2 rounded-full bg-gray-600 transition';
+      }
+    }
+
+    function matchesFilters(item, ignoreKey) {
+      if (state.uncompletedOnly && state.checkedIds.has(item.id)) return false;
+      if (ignoreKey !== 'region' && state.region !== 'all' && item.region !== state.region) return false;
+      if (ignoreKey !== 'reward' && state.reward !== 'all' && !item.rewards.includes(state.reward)) return false;
+      if (ignoreKey !== 'category' && state.category !== 'all' && item.category !== state.category) return false;
+      return true;
+    }
+
+    function renderFilterBars(searchResults) {
+      const t = I18N[state.lang];
+
+      // 1. Region pills (counts respect search + other active filters)
+      const regionCounts = Object.fromEntries(REGION_ORDER.map((r) => [r, 0]));
+      for (const r of searchResults) {
+        if (!matchesFilters(r.item, 'region')) continue;
+        regionCounts.all++;
+        regionCounts[r.item.region]++;
+      }
+      document.getElementById('regionFilterBar').innerHTML = REGION_ORDER.map((reg) => {
+        const active = state.region === reg;
+        const cls = active
+          ? 'bg-viceCyan text-gray-950 border-viceCyan font-extrabold'
+          : 'bg-obsidian text-gray-300 border-borderCrisp hover:border-gray-600 hover:text-white font-medium';
+        const cntCls = active ? 'bg-gray-950/15 text-gray-950' : 'bg-slateCard text-gray-400';
+        return `
+          <button type="button" data-filter="region" data-val="${reg}" class="filter-pill shrink-0 inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl border text-xs transition cursor-pointer ${cls}">
+            <span>${escapeHtml(t.regions[reg])}</span>
+            <span class="px-1.5 py-0.2 rounded-md text-[10px] font-mono font-bold ${cntCls}">${regionCounts[reg]}</span>
+          </button>
+        `;
+      }).join('');
+
+      // 2. Reward pills
+      const rewardCounts = Object.fromEntries(REWARD_ORDER.map((r) => [r, 0]));
+      for (const r of searchResults) {
+        if (!matchesFilters(r.item, 'reward')) continue;
+        rewardCounts.all++;
+        for (const rw of r.item.rewards) {
+          if (rewardCounts[rw] !== undefined) rewardCounts[rw]++;
+        }
+      }
+      document.getElementById('rewardFilterBar').innerHTML = REWARD_ORDER.map((rw) => {
+        const active = state.reward === rw;
+        let cls;
+        if (active) {
+          cls = rw === 'weapon' ? 'bg-amber-400 text-gray-950 border-amber-400 font-extrabold'
+              : rw === 'vehicle' ? 'bg-viceCyan text-gray-950 border-viceCyan font-extrabold'
+              : rw === 'collectible' ? 'bg-purple-400 text-gray-950 border-purple-400 font-extrabold'
+              : rw === 'cash' ? 'bg-emerald-400 text-gray-950 border-emerald-400 font-extrabold'
+              : rw === 'mission' ? 'bg-blue-400 text-gray-950 border-blue-400 font-extrabold'
+              : 'bg-white text-gray-950 border-white font-extrabold';
+        } else {
+          cls = 'bg-obsidian text-gray-300 border-borderCrisp hover:border-gray-600 hover:text-white font-medium';
+        }
+        const cntCls = active ? 'bg-gray-950/15 text-gray-950' : 'bg-slateCard text-gray-400';
+        const icon = rw !== 'all' ? `<span class="text-[11px] leading-none">${getRewardIcon(rw)}</span>` : '';
+        return `
+          <button type="button" data-filter="reward" data-val="${rw}" class="filter-pill shrink-0 inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl border text-xs transition cursor-pointer ${cls}">
+            ${icon}
+            <span>${escapeHtml(t.rewards[rw])}</span>
+            <span class="px-1.5 py-0.2 rounded-md text-[10px] font-mono font-bold ${cntCls}">${rewardCounts[rw]}</span>
+          </button>
+        `;
+      }).join('');
+
+      // 3. Category quick filter pills
+      const catCounts = Object.fromEntries(CATEGORY_ORDER.map((c) => [c, 0]));
+      for (const r of searchResults) {
+        if (!matchesFilters(r.item, 'category')) continue;
+        catCounts.all++;
+        catCounts[r.item.category]++;
+      }
+      document.getElementById('categoryFilterBar').innerHTML = CATEGORY_ORDER.map((cat) => {
+        const active = state.category === cat;
+        const cls = active
+          ? 'bg-viceCoral text-gray-950 border-viceCoral font-extrabold'
+          : 'bg-obsidian text-gray-300 border-borderCrisp hover:border-gray-600 hover:text-white font-medium';
+        const cntCls = active ? 'bg-gray-950/15 text-gray-950' : 'bg-slateCard text-gray-400';
+        return `
+          <button type="button" data-filter="category" data-val="${cat}" class="filter-pill shrink-0 inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl border text-xs transition cursor-pointer ${cls}">
+            <span>${escapeHtml(t.categories[cat])}</span>
+            <span class="px-1.5 py-0.2 rounded-md text-[10px] font-mono font-bold ${cntCls}">${catCounts[cat]}</span>
+          </button>
+        `;
+      }).join('');
+
+      // Show "Reset Filters" button if any filter/search is active
+      const hasActive = Boolean(
+        state.query.trim() ||
+        state.region !== 'all' ||
+        state.reward !== 'all' ||
+        state.category !== 'all' ||
+        state.uncompletedOnly
+      );
+      document.getElementById('resetAllFiltersBtn').classList.toggle('hidden', !hasActive);
+    }
+
+    function renderCodeBlock(item) {
+      const t = I18N[state.lang];
+      const isMulti = item.codes.length > 1;
+
+      if (isMulti) {
+        return `
+          <div class="space-y-2">
+            ${item.codes.map((c) => {
+              const label = state.lang === 'ko' ? c.labelKo : c.labelEn;
+              const leadingZero = c.code.startsWith('0');
+              return `
+                <button
+                  type="button"
+                  data-copy="${escapeHtml(c.code)}"
+                  class="copy-code-btn group w-full flex items-center justify-between gap-2 px-3.5 py-2.5 rounded-xl bg-obsidian hover:bg-cyan-400/10 border border-borderCrisp hover:border-viceCyan/60 transition cursor-pointer"
+                >
+                  <div class="flex flex-wrap items-center gap-1.5 min-w-0">
+                    <span class="text-xs font-semibold text-gray-400 group-hover:text-cyan-200 transition">${escapeHtml(label)}</span>
+                    ${leadingZero ? `<span class="px-1.5 py-0.5 rounded text-[10px] font-extrabold bg-amber-500/15 text-amber-300 border border-amber-500/35">${escapeHtml(t.leadingZeroBadge)}</span>` : ''}
+                  </div>
+                  <div class="flex items-center gap-2 shrink-0">
+                    <span class="font-mono code-digits text-xl font-extrabold tracking-widest text-white group-hover:text-viceCyan transition">${escapeHtml(c.code)}</span>
+                    <svg class="w-4 h-4 text-gray-500 group-hover:text-viceCyan transition" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                      <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                    </svg>
+                  </div>
+                </button>
+              `;
+            }).join('')}
+          </div>
+        `;
+      }
+
+      const c = item.codes[0];
+      const leadingZero = c.code.startsWith('0');
+      const hasAlt = Boolean(c.alt);
+
+      return `
+        <div class="flex items-stretch gap-2">
+          <button
+            type="button"
+            data-copy="${escapeHtml(c.code)}"
+            class="copy-code-btn group flex-1 flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-obsidian hover:bg-cyan-400/10 border border-borderCrisp hover:border-viceCyan/60 transition cursor-pointer"
+          >
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="font-mono code-digits text-2xl font-extrabold tracking-[0.14em] text-white group-hover:text-viceCyan transition">${escapeHtml(c.code)}</span>
+              ${leadingZero ? `<span class="px-1.5 py-0.5 rounded-md text-[10px] font-extrabold bg-amber-500/15 text-amber-300 border border-amber-500/35 whitespace-nowrap">${escapeHtml(t.leadingZeroBadge)}</span>` : ''}
+            </div>
+            <svg class="w-4 h-4 text-gray-500 group-hover:text-viceCyan transition shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+          </button>
+
+          ${hasAlt ? `
+            <button
+              type="button"
+              data-copy="${escapeHtml(c.alt)}"
+              class="copy-code-btn group flex flex-col items-center justify-center px-3 py-2 rounded-xl bg-obsidian hover:bg-amber-500/10 border border-borderCrisp hover:border-amber-400/50 transition cursor-pointer shrink-0"
+              title="${escapeHtml(t.altLabel)}: ${escapeHtml(c.alt)}"
+            >
+              <span class="text-[9px] font-extrabold uppercase tracking-wider text-amber-400/85 leading-none mb-1">${escapeHtml(t.altLabel)}</span>
+              <span class="font-mono code-digits text-sm font-extrabold tracking-wider text-amber-200 group-hover:text-amber-300">${escapeHtml(c.alt)}</span>
+            </button>
+          ` : ''}
+        </div>
+      `;
+    }
+
+    function renderAll() {
+      const t = I18N[state.lang];
+      const searchResults = runFuzzySearch(state.query);
+
+      renderFilterBars(searchResults);
+
+      const filtered = searchResults.filter((entry) => matchesFilters(entry.item, null));
+
+      // Clear search X button visibility
+      document.getElementById('clearSearchBtn').classList.toggle('hidden', !state.query.length);
+
+      // Summary bar
+      const summaryEl = document.getElementById('resultSummary');
+      summaryEl.textContent = state.query.trim()
+        ? t.summarySearch(filtered.length, state.query.trim())
+        : t.summaryAll(filtered.length, LOCATIONS.length);
+
+      const grid = document.getElementById('cardsGrid');
+      const empty = document.getElementById('emptyState');
+
+      if (filtered.length === 0) {
+        grid.innerHTML = '';
+        empty.classList.remove('hidden');
+        return;
+      }
+
+      empty.classList.add('hidden');
+
+      grid.innerHTML = filtered.map(({ item, isFuzzy }) => {
+        const isChecked = state.checkedIds.has(item.id);
+        const primaryName = state.lang === 'ko' ? item.ko : item.en;
+        const secondaryName = state.lang === 'ko' ? item.en : item.ko;
+        const regionText = t.regions[item.region];
+        const subRegion = state.lang === 'ko' ? item.subRegionKo : item.subRegionEn;
+        const tipText = state.lang === 'ko' ? item.tipKo : item.tipEn;
+        const clueText = state.lang === 'ko' ? item.clueKo : item.clueEn;
+        const rewardDetail = state.lang === 'ko' ? item.rewardDetailKo : item.rewardDetailEn;
+        const clueOpen = state.expandedClues.has(item.id);
+
+        const encodedEn = encodeURIComponent(item.en);
+        const ytUrl = `https://www.youtube.com/results?search_query=GTA+6+${encodedEn}+safe+location`;
+        const mapUrl = `https://www.google.com/search?q=GTA+6+map+${encodedEn}+location`;
+
+        return `
+          <article
+            id="card-${escapeHtml(item.id)}"
+            class="flex flex-col justify-between rounded-2xl border p-4 transition-all duration-150 ${
+              isChecked
+                ? 'bg-[#0E1017] border-emerald-500/30 opacity-60 hover:opacity-100'
+                : 'bg-slateCard border-borderCrisp hover:border-gray-600/80 hover:bg-slateCardHover/60'
+            }"
+          >
+            <div class="space-y-3">
+              <!-- Top Row: Region + Reward Badges + Completion Checkbox -->
+              <div class="flex items-start justify-between gap-2">
+                <div class="flex flex-wrap items-center gap-1.5">
+                  <span class="px-2 py-0.5 rounded-md text-[11px] font-semibold bg-obsidian text-gray-300 border border-borderCrisp">
+                    ${escapeHtml(regionText)}${subRegion && subRegion !== regionText && subRegion !== 'Open World' && subRegion !== '오픈월드' ? ` · ${escapeHtml(subRegion)}` : ''}
+                  </span>
+                  ${item.rewards.map((rw) => `
+                    <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] font-bold border ${getRewardBadgeClass(rw)}">
+                      <span class="text-[10px]">${getRewardIcon(rw)}</span>
+                      <span>${escapeHtml(t.rewards[rw])}</span>
+                    </span>
+                  `).join('')}
+                  ${isFuzzy ? `
+                    <span class="px-1.5 py-0.5 rounded-md text-[10px] font-bold bg-cyan-400/15 text-viceCyan border border-cyan-400/30">
+                      ${escapeHtml(t.fuzzyBadge)}
+                    </span>
+                  ` : ''}
+                </div>
+
+                <!-- Completion Checkbox -->
+                <button
+                  type="button"
+                  data-check="${escapeHtml(item.id)}"
+                  title="${escapeHtml(t.doneTooltip)}"
+                  aria-pressed="${isChecked}"
+                  class="check-toggle-btn shrink-0 w-7 h-7 rounded-lg flex items-center justify-center border transition cursor-pointer ${
+                    isChecked
+                      ? 'bg-emerald-500/20 border-emerald-400 text-emerald-300'
+                      : 'bg-obsidian border-borderCrisp text-gray-600 hover:border-gray-400 hover:text-gray-200'
+                  }"
+                >
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.8" viewBox="0 0 24 24">
+                    <path d="M20 6 9 17l-5-5"></path>
+                  </svg>
+                </button>
+              </div>
+
+              <!-- Location Title (Always shows both English official signage & Korean name) -->
+              <div>
+                <h2 class="text-[15px] font-extrabold leading-snug ${isChecked ? 'line-through text-gray-400' : 'text-white'}">
+                  ${escapeHtml(primaryName)}
+                </h2>
+                <p class="text-xs text-gray-400/90 mt-0.5 font-medium">${escapeHtml(secondaryName)}</p>
+              </div>
+
+              <!-- Highlighted Special Reward Callout (Unique Weapon / Vehicle / Collectible) -->
+              ${rewardDetail ? `
+                <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-extrabold ${
+                  item.rewards.includes('weapon')
+                    ? 'bg-gradient-to-r from-amber-500/20 to-rose-500/15 text-amber-200 border border-amber-400/35'
+                    : item.rewards.includes('vehicle')
+                    ? 'bg-cyan-400/15 text-cyan-200 border border-cyan-400/35'
+                    : 'bg-purple-500/15 text-purple-200 border border-purple-400/35'
+                }">
+                  <span>${getRewardIcon(item.rewards[0])}</span>
+                  <span>${escapeHtml(rewardDetail)}</span>
+                </div>
+              ` : ''}
+
+              <!-- Code Copy Buttons -->
+              <div>
+                ${renderCodeBlock(item)}
+              </div>
+
+              <!-- Entry Tip & Optional Collapsible Clue -->
+              <div class="rounded-xl bg-obsidian/70 border border-borderCrisp/80 px-3 py-2.5 space-y-1.5">
+                <p class="text-xs text-gray-300 leading-relaxed">
+                  <span class="font-bold text-viceCyan mr-1">[${escapeHtml(t.entryTipLabel)}]</span>${escapeHtml(tipText)}
+                </p>
+                ${clueText ? `
+                  <div>
+                    <button
+                      type="button"
+                      data-clue-toggle="${escapeHtml(item.id)}"
+                      class="clue-toggle-btn inline-flex items-center gap-1 text-[11px] font-bold text-viceCoral hover:text-rose-300 transition cursor-pointer"
+                    >
+                      <span>${escapeHtml(clueOpen ? t.clueToggleHide : t.clueToggleShow)}</span>
+                      <svg class="w-3 h-3 transition-transform ${clueOpen ? 'rotate-180' : ''}" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                        <path d="m6 9 6 6 6-6"></path>
+                      </svg>
+                    </button>
+                    ${clueOpen ? `
+                      <p class="mt-1.5 pt-1.5 border-t border-borderCrisp/70 text-xs text-gray-400 leading-relaxed">${escapeHtml(clueText)}</p>
+                    ` : ''}
+                  </div>
+                ` : ''}
+              </div>
+            </div>
+
+            <!-- Per-Card Action Footer (YouTube / Map / Direct Share) -->
+            <div class="mt-3.5 pt-3 border-t border-borderCrisp/70 grid grid-cols-3 gap-1.5">
+              <a
+                href="${ytUrl}"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center justify-center gap-1.5 px-2 py-2 rounded-xl bg-obsidian hover:bg-rose-500/15 border border-borderCrisp hover:border-rose-500/40 text-[11px] font-bold text-gray-300 hover:text-rose-200 transition"
+              >
+                <svg class="w-3.5 h-3.5 text-rose-400 shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31.4 31.4 0 0 0 0 12a31.4 31.4 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31.4 31.4 0 0 0 24 12a31.4 31.4 0 0 0-.5-5.8ZM9.6 15.6V8.4l6.3 3.6-6.3 3.6Z"/>
+                </svg>
+                <span class="truncate">${escapeHtml(t.ytBtn)}</span>
+              </a>
+
+              <a
+                href="${mapUrl}"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center justify-center gap-1.5 px-2 py-2 rounded-xl bg-obsidian hover:bg-cyan-400/15 border border-borderCrisp hover:border-viceCyan/40 text-[11px] font-bold text-gray-300 hover:text-cyan-200 transition"
+              >
+                <svg class="w-3.5 h-3.5 text-viceCyan shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                  <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
+                  <circle cx="12" cy="10" r="3"></circle>
+                </svg>
+                <span class="truncate">${escapeHtml(t.mapBtn)}</span>
+              </a>
+
+              <button
+                type="button"
+                data-share-id="${escapeHtml(item.id)}"
+                class="share-card-btn inline-flex items-center justify-center gap-1.5 px-2 py-2 rounded-xl bg-obsidian hover:bg-gray-800 border border-borderCrisp hover:border-gray-500 text-[11px] font-bold text-gray-300 hover:text-white transition cursor-pointer"
+              >
+                <svg class="w-3.5 h-3.5 text-gray-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                  <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                </svg>
+                <span class="truncate">${escapeHtml(t.shareBtn)}</span>
+              </button>
+            </div>
+          </article>
+        `;
+      }).join('');
+    }
+
+    /**
+     * =========================================================================
+     * 7. DEEP-LINK HASH NAVIGATION (#item-id)
+     * =========================================================================
+     */
+    function jumpToHashTarget() {
+      const rawHash = window.location.hash ? decodeURIComponent(window.location.hash.slice(1)) : '';
+      if (!rawHash) return;
+
+      const targetItem = LOCATIONS.find((x) => x.id === rawHash);
+      if (!targetItem) return;
+
+      // Ensure card is visible even if filters were previously applied
+      let needsRerender = false;
+      if (state.query || state.region !== 'all' || state.reward !== 'all' || state.category !== 'all' || state.uncompletedOnly) {
+        state.query = '';
+        state.region = 'all';
+        state.reward = 'all';
+        state.category = 'all';
+        state.uncompletedOnly = false;
+        document.getElementById('searchInput').value = '';
+        updateProgressUI();
+        needsRerender = true;
+      }
+      if (needsRerender) renderAll();
+
+      requestAnimationFrame(() => {
+        const cardEl = document.getElementById(`card-${targetItem.id}`);
+        if (!cardEl) return;
+        cardEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        cardEl.classList.remove('hash-highlight');
+        void cardEl.offsetWidth;
+        cardEl.classList.add('hash-highlight');
+      });
+    }
+
+    /**
+     * =========================================================================
+     * 8. EVENT HANDLERS & MODAL CONTROLS
+     * =========================================================================
+     */
+    function openModal(id) {
+      const el = document.getElementById(id);
+      el.classList.remove('hidden');
+      el.classList.add('flex');
+    }
+
+    function closeModal(id) {
+      const el = document.getElementById(id);
+      el.classList.add('hidden');
+      el.classList.remove('flex');
+    }
+
+    function resetAllFilters() {
+      state.query = '';
+      state.region = 'all';
+      state.reward = 'all';
+      state.category = 'all';
+      state.uncompletedOnly = false;
+      document.getElementById('searchInput').value = '';
+      updateProgressUI();
+      renderAll();
+    }
+
+    function bindEvents() {
+      const searchInput = document.getElementById('searchInput');
+
+      searchInput.addEventListener('input', (e) => {
+        state.query = e.target.value;
+        renderAll();
+      });
+
+      document.getElementById('clearSearchBtn').addEventListener('click', () => {
+        state.query = '';
+        searchInput.value = '';
+        searchInput.focus();
+        renderAll();
+      });
+
+      document.getElementById('resetAllFiltersBtn').addEventListener('click', resetAllFilters);
+      document.getElementById('emptyResetBtn').addEventListener('click', () => {
+        resetAllFilters();
+        searchInput.focus();
+      });
+
+      // Uncompleted only toggle
+      document.getElementById('uncompletedToggleBtn').addEventListener('click', () => {
+        state.uncompletedOnly = !state.uncompletedOnly;
+        updateProgressUI();
+        renderAll();
+      });
+
+      // Language toggle
+      document.getElementById('langKoBtn').addEventListener('click', () => {
+        if (state.lang !== 'ko') {
+          state.lang = 'ko';
+          persistLang();
+          updateStaticChrome();
+          updateProgressUI();
+          renderAll();
+        }
+      });
+      document.getElementById('langEnBtn').addEventListener('click', () => {
+        if (state.lang !== 'en') {
+          state.lang = 'en';
+          persistLang();
+          updateStaticChrome();
+          updateProgressUI();
+          renderAll();
+        }
+      });
+
+      // Delegated filter bar clicks
+      ['regionFilterBar', 'rewardFilterBar', 'categoryFilterBar'].forEach((barId) => {
+        document.getElementById(barId).addEventListener('click', (e) => {
+          const pill = e.target.closest('.filter-pill');
+          if (!pill) return;
+          const type = pill.dataset.filter;
+          const val = pill.dataset.val;
+          state[type] = val;
+          renderAll();
+        });
+      });
+
+      // Delegated card interactions (Copy Code / Check Done / Toggle Clue / Copy Direct Share Link)
+      document.getElementById('cardsGrid').addEventListener('click', (e) => {
+        const copyBtn = e.target.closest('.copy-code-btn');
+        if (copyBtn) {
+          const code = copyBtn.dataset.copy;
+          copyToClipboard(code);
+          showToast(I18N[state.lang].copiedCode(code));
+          copyBtn.classList.add('!border-emerald-400', '!bg-emerald-500/20');
+          setTimeout(() => copyBtn.classList.remove('!border-emerald-400', '!bg-emerald-500/20'), 650);
+          return;
+        }
+
+        const checkBtn = e.target.closest('.check-toggle-btn');
+        if (checkBtn) {
+          const id = checkBtn.dataset.check;
+          if (state.checkedIds.has(id)) state.checkedIds.delete(id);
+          else state.checkedIds.add(id);
+          persistChecked();
+          updateProgressUI();
+          renderAll();
+          return;
+        }
+
+        const clueBtn = e.target.closest('.clue-toggle-btn');
+        if (clueBtn) {
+          const id = clueBtn.dataset.clueToggle;
+          if (state.expandedClues.has(id)) state.expandedClues.delete(id);
+          else state.expandedClues.add(id);
+          renderAll();
+          return;
+        }
+
+        const shareBtn = e.target.closest('.share-card-btn');
+        if (shareBtn) {
+          const id = shareBtn.dataset.shareId;
+          const baseUrl = window.location.href.split('#')[0];
+          const directUrl = `${baseUrl}#${id}`;
+          copyToClipboard(directUrl);
+          showToast(I18N[state.lang].copiedShare);
+        }
+      });
+
+      // Copy full site URL button
+      document.getElementById('copyPageUrlBtn').addEventListener('click', () => {
+        const baseUrl = window.location.href.split('#')[0];
+        copyToClipboard(baseUrl);
+        showToast(I18N[state.lang].copiedPageUrl);
+      });
+
+      // Guide modal events
+      document.getElementById('openGuideModalBtn').addEventListener('click', () => openModal('guideModal'));
+      document.getElementById('closeGuideModalBtn').addEventListener('click', () => closeModal('guideModal'));
+      document.getElementById('guideModalOkBtn').addEventListener('click', () => closeModal('guideModal'));
+      document.getElementById('guideModal').addEventListener('click', (e) => {
+        if (e.target.id === 'guideModal') closeModal('guideModal');
+      });
+
+      // Reset progress confirmation modal events
+      document.getElementById('openResetModalBtn').addEventListener('click', () => openModal('resetModal'));
+      document.getElementById('cancelResetBtn').addEventListener('click', () => closeModal('resetModal'));
+      document.getElementById('resetModal').addEventListener('click', (e) => {
+        if (e.target.id === 'resetModal') closeModal('resetModal');
+      });
+      document.getElementById('confirmResetBtn').addEventListener('click', () => {
+        state.checkedIds.clear();
+        persistChecked();
+        updateProgressUI();
+        renderAll();
+        closeModal('resetModal');
+        showToast(I18N[state.lang].resetDoneToast);
+      });
+
+      // Global keyboard shortcuts: '/' focuses search, 'Escape' closes modals or clears search
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          if (!document.getElementById('guideModal').classList.contains('hidden')) {
+            closeModal('guideModal');
+            return;
+          }
+          if (!document.getElementById('resetModal').classList.contains('hidden')) {
+            closeModal('resetModal');
+            return;
+          }
+          if (state.query) {
+            state.query = '';
+            searchInput.value = '';
+            renderAll();
+          }
+          return;
+        }
+        if (e.key === '/' && document.activeElement !== searchInput && document.activeElement.tagName !== 'INPUT') {
+          e.preventDefault();
+          searchInput.focus();
+          searchInput.select();
+        }
+      });
+
+      window.addEventListener('hashchange', jumpToHashTarget);
+    }
+
+    // Initialize App
+    loadPersistedState();
+    updateStaticChrome();
+    updateProgressUI();
+    bindEvents();
+    renderAll();
+    jumpToHashTarget();
+  </script>
+</body>
+</html>
+
+이걸로 쿄체해서 다른 방법으로 호스팅 ㄱㄱ 깃헙이나
